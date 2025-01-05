@@ -25,6 +25,7 @@ const routes = [
 
   {
     meta: {
+<<<<<<< HEAD
       title: "Login",
     },
     path: "/Login",
@@ -36,6 +37,11 @@ const routes = [
       title: "Dashboard",
     },
     path: "/Dashboard",
+=======
+      title: "Dashboard",
+    },
+    path: "/",
+>>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
     name: "Employe",
     component: () => import("@/views/Employe/EmployeView.vue"),
   },
@@ -83,6 +89,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
+<<<<<<< HEAD
   // const mainStore = useMainStore();
   // if (to.name != "login") {
   //   console.log("connecge------------------", mainStore.id, to.name);
@@ -96,5 +103,21 @@ router.beforeEach((to) => {
   //     router.push("/");
   //   }
   // }
+=======
+  const mainStore = useMainStore();
+
+  if (to.name != "login") {
+    console.log("connecge------------------", mainStore.id, to.name);
+    if (mainStore.id == null) {
+      router.push("/Login");
+    }
+  }
+  if (to.name == "login") {
+    if (mainStore.id != null) {
+      console.log("is login------------------");
+      router.push("/");
+    }
+  }
+>>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
 });
 export default router;

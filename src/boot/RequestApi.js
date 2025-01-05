@@ -88,7 +88,11 @@ export class RequestApi {
    * @param {*}
    * @returns
    */
+<<<<<<< HEAD
   getListVol = async () => {
+=======
+  listEmploye = async () => {
+>>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
     let dataRes = { status: true };
 
     await api
@@ -117,7 +121,11 @@ export class RequestApi {
    * @param {*}
    * @returns
    */
+<<<<<<< HEAD
   getLitReservations = async () => {
+=======
+  listEmployeSecond = async () => {
+>>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
     let dataRes = { status: true };
 
     await api

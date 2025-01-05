@@ -184,3 +184,8 @@ The issue list is reserved exclusively for bug reports and feature requests. Tha
 "# horizon_dashboard"  git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/horizon_dashboard.git git push -u origin main
 "# horizon_dashboard" 
 "# horizon_dashboard" 
+<<<<<<< HEAD
+=======
+"# projet_frontend" 
+"# projet_frontend" 
+>>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4

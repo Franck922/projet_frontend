@@ -19,7 +19,11 @@ onMounted(() => {
 
 const mainStore = useMainStore();
 
+<<<<<<< HEAD
 const router = useRouter();
+=======
+const router = useRouter(); 
+>>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
 let loading = ref(false);
 // let remember = ref(true);
 let phone = ref("");
