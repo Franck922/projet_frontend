@@ -10,27 +10,27 @@ import {
   mdiThemeLightDark,
   mdiGithub,
   mdiBell,
-} from "@mdi/js";
+} from '@mdi/js';
 
 export default [
   {
     icon: mdiMenu,
-    label: "Sample menu",
+    label: 'Sample menu',
     menu: [
       {
         icon: mdiClockOutline,
-        label: "Item One",
+        label: 'Item One',
       },
       {
         icon: mdiCloud,
-        label: "Item Two",
+        label: 'Item Two',
       },
       {
         isDivider: true,
       },
       {
         icon: mdiCrop,
-        label: "Item Last",
+        label: 'Item Last',
       },
     ],
   },
@@ -39,16 +39,16 @@ export default [
     menu: [
       {
         icon: mdiAccount,
-        label: "My Profile",
-        to: "/profile",
+        label: 'My Profile',
+        to: '/profile',
       },
       {
         icon: mdiCogOutline,
-        label: "Settings",
+        label: 'Settings',
       },
       {
         icon: mdiEmail,
-        label: "Messages",
+        label: 'Messages',
       },
       {
         isDivider: true,
@@ -57,23 +57,23 @@ export default [
   },
   {
     icon: mdiBell,
-    label: "React version",
-    to: "/notifications",
+    label: 'React version',
+    to: '/notifications',
     isDesktopNoLabel: true,
-    target: "_blank",
+    target: '_blank',
     menu: [
       {
         icon: mdiAccount,
-        label: "My Profile",
-        to: "/profile",
+        label: 'My Profile',
+        to: '/profile',
       },
       {
         icon: mdiCogOutline,
-        label: "Settings",
+        label: 'Settings',
       },
       {
         icon: mdiEmail,
-        label: "Messages",
+        label: 'Messages',
       },
       {
         isDivider: true,
@@ -82,9 +82,9 @@ export default [
   },
   {
     icon: mdiLogout,
-    label: "Log out",
+    label: 'Log out',
     isDesktopNoLabel: true,
-    color: "RedFormat",
+    color: 'RedFormat',
     isLogout: true,
   },
 ];

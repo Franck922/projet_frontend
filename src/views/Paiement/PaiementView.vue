@@ -9,31 +9,31 @@ import {
   mdiEye,
   mdiAccountAlertOutline,
   mdiGamepadCircle,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import NotificationBar from "@/components/NotificationBar.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import FormControl from "@/components/FormControl.vue";
+} from '@mdi/js';
+import SectionMain from '@/components/SectionMain.vue';
+import NotificationBar from '@/components/NotificationBar.vue';
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import FormControl from '@/components/FormControl.vue';
 
-import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
+import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue';
 
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import TableCheckboxCell from "@/components/TableCheckboxCell.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
-import BaseButton from "@/components/BaseButton.vue";
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import TableCheckboxCell from '@/components/TableCheckboxCell.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
+import BaseButton from '@/components/BaseButton.vue';
 // import UserAvatar from "@/components/UserAvatar.vue";
-import AsideMenuItem from "@/components/AsideMenuItem.vue";
+import AsideMenuItem from '@/components/AsideMenuItem.vue';
 
-import { useMainStore } from "@/stores/main";
-import { onMounted, computed, ref } from "vue";
-import { RequestApi } from "@/boot/RequestApi";
+import { useMainStore } from '@/stores/main';
+import { onMounted, computed, ref } from 'vue';
+import { RequestApi } from '@/boot/RequestApi';
 
-import FormField from "@/components/FormField.vue";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+import FormField from '@/components/FormField.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalCreateCB = ref(false);
@@ -46,16 +46,16 @@ let listMois = ref([]);
 let loading = ref(true);
 let loadingAction = ref(false);
 let mois = ref();
-let salaire = ref("");
+let salaire = ref('');
 
 const mainStore = useMainStore();
 
 async function creerPaiement() {
   let data = {
     datePaiement: new Date(),
-    admin: "/api/user_plateforms/" + mainStore.id,
-    employe: "/api/employes/" + employe.value.id,
-    mois: "/api/mois/" + mois.value.id,
+    admin: '/api/user_plateforms/' + mainStore.id,
+    employe: '/api/employes/' + employe.value.id,
+    mois: '/api/mois/' + mois.value.id,
     montant: parseInt(salaire.value),
   };
   console.log(data);
@@ -64,7 +64,7 @@ async function creerPaiement() {
   if (response.status) {
     console.log(response.message);
 
-    toast.success("Employe paye avec Succes !", {
+    toast.success('Employe paye avec Succes !', {
       autoClose: 2000,
     });
 
@@ -72,7 +72,7 @@ async function creerPaiement() {
 
     getlistPaiement();
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -81,9 +81,9 @@ async function creerPaiement() {
 async function imprimerrapportPaiement() {
   let data = {
     datePaiement: new Date(),
-    admin: "/api/user_plateforms/" + mainStore.id,
-    employe: "/api/employes/" + employe.value.id,
-    mois: "/api/mois/" + mois.value.id,
+    admin: '/api/user_plateforms/' + mainStore.id,
+    employe: '/api/employes/' + employe.value.id,
+    mois: '/api/mois/' + mois.value.id,
     montant: parseInt(salaire.value),
   };
   console.log(data);
@@ -92,13 +92,13 @@ async function imprimerrapportPaiement() {
   if (response.status) {
     console.log(response.message);
 
-    toast.success("Rapport imprime avec Succes !", {
+    toast.success('Rapport imprime avec Succes !', {
       autoClose: 2000,
     });
 
     loadingAction.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -110,7 +110,7 @@ async function getlistEmploye() {
     response.data.forEach((element) => {
       listEmploye.value.push({
         id: element.id,
-        label: element.nom + " " + element.prenom,
+        label: element.nom + ' ' + element.prenom,
         salaire: element.salaire,
       });
     });
@@ -187,10 +187,10 @@ onMounted(async () => {
 
     <FormField label="Selectionner un employe">
       <FormControl
-        placeholder="Selectionner un employe"
         v-model="employe"
-        v-on:change="salaire = employe.salaire"
+        placeholder="Selectionner un employe"
         :options="listEmploye"
+        @change="salaire = employe.salaire"
       />
     </FormField>
 
@@ -203,11 +203,11 @@ onMounted(async () => {
 
     <BaseButtons>
       <BaseButton
-        @click="creerPaiement"
         type="submit"
         :loading="loadingAction"
         color="info"
         label="Creer"
+        @click="creerPaiement"
       />
     </BaseButtons>
   </CardBoxModal>
@@ -221,10 +221,10 @@ onMounted(async () => {
 
     <FormField label="Selectionner un employe">
       <FormControl
-        placeholder="Selectionner un employe"
         v-model="employe"
-        v-on:change="salaire = employe.salaire"
+        placeholder="Selectionner un employe"
         :options="listEmploye"
+        @change="salaire = employe.salaire"
       />
     </FormField>
 
@@ -234,11 +234,11 @@ onMounted(async () => {
 
     <BaseButtons>
       <BaseButton
-        @click="imprimerrapportPaiement"
         type="submit"
         :loading="loadingAction"
         color="info"
         label="Imprimer"
+        @click="imprimerrapportPaiement"
       />
     </BaseButtons>
   </CardBoxModal>
@@ -250,26 +250,26 @@ onMounted(async () => {
         main
       >
         <BaseButton
-          @click="isModalrapport = true"
           type="submit"
           :loading="isModalCreateCB"
           color="info"
           rounded-full
           small
           label="Imprimer Rapport de paiement"
+          @click="isModalrapport = true"
         />
         <BaseButton
           target="_blank"
           label="Creer un paiement"
           color="contrast"
-          @click="isModalCreateCB = true"
           rounded-full
           small
+          @click="isModalCreateCB = true"
         />
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
-      <CardBox class="mb-2" has-table v-else>
+      <CardBox v-else class="mb-2" has-table>
         <table>
           <thead>
             <tr>
@@ -302,8 +302,8 @@ onMounted(async () => {
                 {{ paiement.mois.libelle }}
               </td>
               <td data-label="date_paiement">
-                {{ paiement.datePaiement.split("T")[0] }} a
-                {{ paiement.datePaiement.split("T")[1].split("+")[0] }}
+                {{ paiement.datePaiement.split('T')[0] }} a
+                {{ paiement.datePaiement.split('T')[1].split('+')[0] }}
               </td>
               <td data-label="admin">
                 {{ paiement.admin.prenom }} {{ paiement.admin.nom }}

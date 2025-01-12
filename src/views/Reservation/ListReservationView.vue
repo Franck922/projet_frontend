@@ -9,26 +9,26 @@ import {
   mdiEye,
   mdiAccountAlertOutline,
   mdiGamepadCircle,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import FormControl from "@/components/FormControl.vue";
+} from '@mdi/js';
+import SectionMain from '@/components/SectionMain.vue';
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import FormControl from '@/components/FormControl.vue';
 
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import { useRouter } from "vue-router";
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import { useRouter } from 'vue-router';
 
-import { useMainStore } from "@/stores/main";
-import { onMounted, computed, ref } from "vue";
-import { RequestApi } from "@/boot/RequestApi";
+import { useMainStore } from '@/stores/main';
+import { onMounted, computed, ref } from 'vue';
+import { RequestApi } from '@/boot/RequestApi';
 
-import FormField from "@/components/FormField.vue";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+import FormField from '@/components/FormField.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
@@ -47,9 +47,9 @@ let listTypePoste = ref([]);
 let typePoste = ref([]);
 let loading = ref(true);
 let loadingAction = ref(false);
-let employe = ref("");
-let poste = ref("");
-let titreposte = ref("");
+let employe = ref('');
+let poste = ref('');
+let titreposte = ref('');
 
 const itemsPaginatedFilter = computed(() =>
   listPosteEmployeFilter.value.slice(
@@ -83,7 +83,7 @@ async function getlistEmploye() {
     response.data.forEach((element) => {
       listEmploye.value.push({
         id: element.id,
-        label: element.nom + " " + element.prenom,
+        label: element.nom + ' ' + element.prenom,
       });
     });
   } else {
@@ -162,11 +162,11 @@ onMounted(async () => {
 const connected = () => {
   router.beforeEach(() => {
     if ((mainStore.nom = null)) {
-      console.log("------------", "Vas te connecter");
+      console.log('------------', 'Vas te connecter');
 
-      router.push("/Login");
+      router.push('/Login');
     } else {
-      console.log("------------", "Vas te connecter");
+      console.log('------------', 'Vas te connecter');
     }
   });
 };
@@ -174,7 +174,7 @@ const connected = () => {
 let _seletUser = ref();
 function setAction(user) {
   console.log(user);
-  console.log("---user");
+  console.log('---user');
   _seletUser.value = user;
   isModalActive.value = true;
   console.log(_seletUser.value);
@@ -189,20 +189,20 @@ function setAction1(user) {
 const affectToPoste = async () => {
   loadingAction.value = true;
   let data = {
-    poste: "/api/postes/" + poste.value.id,
-    typePoste: "/api/type_postes/" + typePoste.value.id,
-    employe: "/api/employes/" + employe.value.id,
+    poste: '/api/postes/' + poste.value.id,
+    typePoste: '/api/type_postes/' + typePoste.value.id,
+    employe: '/api/employes/' + employe.value.id,
   };
   const response = await request.affectToPoste(data);
   if (response.status) {
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     await getPosteEmploye();
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -215,14 +215,14 @@ const newPoste = async () => {
   };
   const response = await request.newPoste(data);
   if (response.status) {
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     await getlistPoste();
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -239,7 +239,7 @@ const PosteEmployeFilter = async () => {
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -313,7 +313,7 @@ const PosteEmployeFilter = async () => {
     />
 
     <Loader v-if="loadingAction" />
-    <CardBox class="mb-2" has-table v-else>
+    <CardBox v-else class="mb-2" has-table>
       <table>
         <thead>
           <tr>
@@ -345,8 +345,8 @@ const PosteEmployeFilter = async () => {
             </td>
 
             <td data-label="date_poste">
-              {{ posteUser.dateCreated.split("T")[0] }} a
-              {{ posteUser.dateCreated.split("T")[1] }}
+              {{ posteUser.dateCreated.split('T')[0] }} a
+              {{ posteUser.dateCreated.split('T')[1] }}
             </td>
 
             <td class="before:hidden lg:w-1 whitespace-nowrap">
@@ -399,30 +399,30 @@ const PosteEmployeFilter = async () => {
           target="_blank"
           label="Voir historique de poste d'un employe"
           color="contrast"
-          @click="isModalPoste = true"
           rounded-full
           small
+          @click="isModalPoste = true"
         />
         <BaseButton
           target="_blank"
           label="Nouveau poste"
           color="contrast"
-          @click="isModalActiveNewPoste = true"
           rounded-full
           small
+          @click="isModalActiveNewPoste = true"
         />
         <BaseButton
           target="_blank"
           label="Poster Un employe"
           color="contrast"
-          @click="isModalActive = true"
           rounded-full
           small
+          @click="isModalActive = true"
         />
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
-      <CardBox class="mb-2" has-table v-else>
+      <CardBox v-else class="mb-2" has-table>
         <table>
           <thead>
             <tr>
@@ -454,8 +454,8 @@ const PosteEmployeFilter = async () => {
               </td>
 
               <td data-label="date_poste">
-                {{ posteUser.dateCreated.split("T")[0] }} a
-                {{ posteUser.dateCreated.split("T")[1] }}
+                {{ posteUser.dateCreated.split('T')[0] }} a
+                {{ posteUser.dateCreated.split('T')[1] }}
               </td>
 
               <td class="before:hidden lg:w-1 whitespace-nowrap">

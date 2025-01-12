@@ -9,31 +9,31 @@ import {
   mdiEye,
   mdiAccountAlertOutline,
   mdiGamepadCircle,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import NotificationBar from "@/components/NotificationBar.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import FormControl from "@/components/FormControl.vue";
+} from '@mdi/js';
+import SectionMain from '@/components/SectionMain.vue';
+import NotificationBar from '@/components/NotificationBar.vue';
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import FormControl from '@/components/FormControl.vue';
 
-import CardBoxComponentEmpty from "@/components/CardBoxComponentEmpty.vue";
- 
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import TableCheckboxCell from "@/components/TableCheckboxCell.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
-import BaseButton from "@/components/BaseButton.vue";
+import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue';
+
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import TableCheckboxCell from '@/components/TableCheckboxCell.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
+import BaseButton from '@/components/BaseButton.vue';
 // import UserAvatar from "@/components/UserAvatar.vue";
-import AsideMenuItem from "@/components/AsideMenuItem.vue";
+import AsideMenuItem from '@/components/AsideMenuItem.vue';
 
-import { useMainStore } from "@/stores/main";
-import { onMounted, computed, ref } from "vue";
-import { RequestApi } from "@/boot/RequestApi";
+import { useMainStore } from '@/stores/main';
+import { onMounted, computed, ref } from 'vue';
+import { RequestApi } from '@/boot/RequestApi';
 
-import FormField from "@/components/FormField.vue";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+import FormField from '@/components/FormField.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
@@ -51,9 +51,9 @@ let listUsersSave = ref([]);
 let loading = ref(true);
 let loadingUpdate = ref(false);
 let reloading = ref(true);
-let name = ref("");
-let phone = ref("");
-let password = ref("");
+let name = ref('');
+let phone = ref('');
+let password = ref('');
 const mainStore = useMainStore();
 
 async function creerController() {
@@ -66,13 +66,13 @@ async function creerController() {
   const response = await request.NewControllerBureau(data);
   if (response.status) {
     console.log(response.message);
-    if (response.message != "") {
+    if (response.message != '') {
       toast.info(response.message, {
         autoClose: 2000,
       });
       loading.value = false;
     } else {
-      toast.success("Succes !", {
+      toast.success('Succes !', {
         autoClose: 2000,
       });
       typeUser.value = 2;
@@ -81,7 +81,7 @@ async function creerController() {
       loading.value = false;
     }
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loading.value = false;
@@ -171,7 +171,7 @@ async function getMissionsList() {
 let typeUser = ref(4);
 
 async function setType(typeselect) {
-  console.log("---user", typeselect);
+  console.log('---user', typeselect);
 
   typeUser.value = typeselect;
 
@@ -197,7 +197,7 @@ function getData() {
 let _seletUser = ref();
 function setAction(user) {
   console.log(user);
-  console.log("---user");
+  console.log('---user');
   _seletUser.value = user;
   isModalActive.value = true;
   console.log(_seletUser.value);
@@ -239,19 +239,19 @@ function setAction2(user) {
 const stateUserAction = async () => {
   loadingUpdate.value = true;
   let data = {
-    keySecretCbureau: localStorage.getItem("keySecret"),
+    keySecretCbureau: localStorage.getItem('keySecret'),
     keySecret: _seletUser.value.keySecret,
   };
   const response = await request.ActivateBiker(data);
   if (response.status) {
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     getData();
     loadingUpdate.value = false;
     isModalStateUser.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingUpdate.value = false;
@@ -261,20 +261,20 @@ const stateUserAction = async () => {
 const affectBikerToMission = async () => {
   loadingUpdate.value = true;
   let data = {
-    keySecretCbureau: localStorage.getItem("keySecret"),
+    keySecretCbureau: localStorage.getItem('keySecret'),
     keySecret: _seletUser.value.keySecret,
     mission_id: mission.value.id,
   };
   const response = await request.AffectBikerToMission(data);
   if (response.status) {
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     getData();
     loadingUpdate.value = false;
     isModalStateUser.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingUpdate.value = false;
@@ -285,10 +285,10 @@ function setAction3(user) {
   _seletUser.value = user;
   isModalPassword.value = true;
   console.log(_seletUser.value);
-  newPass.value = "";
+  newPass.value = '';
 }
 
-let newPass = ref("fdfdfd");
+let newPass = ref('fdfdfd');
 
 const resetPasswordUserAction = async () => {
   loadingUpdate.value = true;
@@ -312,24 +312,24 @@ const copyText = (missionE) => {
   navigator.clipboard
     .writeText(newPass.value)
     .then(() => {
-      console.log("Text copied!");
+      console.log('Text copied!');
     })
     .catch((error) => {
-      console.error("Copy failed:", error);
+      console.error('Copy failed:', error);
     });
 };
 </script>
 
 <template>
   <CardBoxModal
-    v-model="isModalActive"
     v-if="_seletUser != null"
+    v-model="isModalActive"
     title="Affecter la mission"
   >
     <FormField label="Selectionner une mission">
       <FormControl
-        placeholder="Selectionner une mission"
         v-model="mission"
+        placeholder="Selectionner une mission"
         :options="listMissions"
       />
     </FormField>
@@ -346,22 +346,22 @@ const copyText = (missionE) => {
   </CardBoxModal>
 
   <CardBoxModal
-    v-model="isModalStateUser"
     v-if="_seletUser != null"
+    v-model="isModalStateUser"
     title="Status du compte"
     button="danger"
   >
     <p>
       Vous allez
-      {{ _seletUser.status == true ? "desactiver" : "activer" }} Le
+      {{ _seletUser.status == true ? 'desactiver' : 'activer' }} Le
       {{
         _seletUser.typeUser == 1
-          ? "Admin"
+          ? 'Admin'
           : _seletUser.typeUser == 2
-          ? "Controller de bureau"
+          ? 'Controller de bureau'
           : _seletUser.typeUser == 2
-          ? "Controller de terrain"
-          : "Biker"
+          ? 'Controller de terrain'
+          : 'Biker'
       }}
       <b>{{ _seletUser.nom }}</b>
     </p>
@@ -374,8 +374,8 @@ const copyText = (missionE) => {
     />
   </CardBoxModal>
   <CardBoxModal
-    v-model="isModalPassword"
     v-if="_seletUser != null"
+    v-model="isModalPassword"
     title="Mot de passe"
     button="danger"
   >
@@ -394,13 +394,13 @@ const copyText = (missionE) => {
       Voici le nouveau mot de passe du compte de
       <b>{{ _seletUser.nom }}</b> : {{ newPass }}
       <BaseButton
-        @click="copyText"
         target="_blank"
         :icon="mdiContentCopy"
         label="Copy"
         color="contrast"
         rounded-full
         small
+        @click="copyText"
       />
     </p>
   </CardBoxModal>
@@ -441,11 +441,11 @@ const copyText = (missionE) => {
 
     <BaseButtons>
       <BaseButton
-        @click="creerController"
         type="submit"
         :loading="loading"
         color="info"
         label="Creer"
+        @click="creerController"
       />
     </BaseButtons>
   </CardBoxModal>
@@ -457,50 +457,50 @@ const copyText = (missionE) => {
         main
       >
         <BaseButton
-          @click="setType(4)"
           target="_blank"
           label="Bikers"
           :color="typeUser == 4 ? 'bg-blue-900' : 'contrast'"
           rounded-full
           small
+          @click="setType(4)"
         />
         <BaseButton
-          @click="setType(3)"
           target="_blank"
           label="Controlleurs Terrains"
           :color="typeUser == 3 ? 'bg-blue-900' : 'contrast'"
           rounded-full
           small
+          @click="setType(3)"
         />
         <BaseButton
-          @click="setType(2)"
           target="_blank"
           label="Controlleurs Bureau"
           :color="typeUser == 2 ? 'bg-blue-900' : 'contrast'"
           rounded-full
           small
+          @click="setType(2)"
         />
         <BaseButton
-          @click="setType(1)"
           target="_blank"
           label="Administrateur"
           :color="typeUser == 1 ? 'bg-blue-900' : 'contrast'"
           rounded-full
           small
+          @click="setType(1)"
         />
 
         <BaseButton
           target="_blank"
           label="Ajouter Controleur de Bureau"
           color="contrast"
-          @click="isModalCreateCB = true"
           rounded-full
           small
+          @click="isModalCreateCB = true"
         />
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
-      <CardBox class="mb-2" has-table v-else>
+      <CardBox v-else class="mb-2" has-table>
         <table>
           <thead>
             <tr>
@@ -526,20 +526,20 @@ const copyText = (missionE) => {
               </td>
               <td data-label="solde">{{ user.solde }} XAF</td>
               <td data-label="Ville">
-                {{ "Douala" }}
+                {{ 'Douala' }}
               </td>
               <td data-label="status">
-                {{ user.status == true ? "Actif" : "Inactif" }}
+                {{ user.status == true ? 'Actif' : 'Inactif' }}
               </td>
               <td data-label="type_user">
                 {{
                   user.typeUser == 1
-                    ? "Admin"
+                    ? 'Admin'
                     : user.typeUser == 2
-                    ? "Controller de bureau"
+                    ? 'Controller de bureau'
                     : user.typeUser == 2
-                    ? "Controller de terrain"
-                    : "Biker"
+                    ? 'Controller de terrain'
+                    : 'Biker'
                 }}
               </td>
               <td data-label="date">
@@ -556,9 +556,9 @@ const copyText = (missionE) => {
                   />
 
                   <BaseButton
+                    v-if="user.typeUser == 4"
                     color="warning"
                     :icon="mdiLock"
-                    v-if="user.typeUser == 4"
                     small
                     @click="setAction3(user)"
                   />

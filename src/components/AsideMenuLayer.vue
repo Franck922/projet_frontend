@@ -1,12 +1,12 @@
 <script setup>
-import { mdiLogout, mdiClose } from "@mdi/js";
-import { computed } from "vue";
-import { useStyleStore } from "@/stores/style.js";
-import AsideMenuList from "@/components/AsideMenuList.vue";
-import AsideMenuItem from "@/components/AsideMenuItem.vue";
-import BaseIcon from "@/components/BaseIcon.vue";
-import { useRouter } from "vue-router";
-import { useMainStore } from "@/stores/main";
+import { mdiLogout, mdiClose } from '@mdi/js';
+import { computed } from 'vue';
+import { useStyleStore } from '@/stores/style.js';
+import AsideMenuList from '@/components/AsideMenuList.vue';
+import AsideMenuItem from '@/components/AsideMenuItem.vue';
+import BaseIcon from '@/components/BaseIcon.vue';
+import { useRouter } from 'vue-router';
+import { useMainStore } from '@/stores/main';
 
 defineProps({
   menu: {
@@ -15,29 +15,29 @@ defineProps({
   },
 });
 
-const emit = defineEmits(["menu-click", "aside-lg-close-click"]);
+const emit = defineEmits(['menu-click', 'aside-lg-close-click']);
 
 const styleStore = useStyleStore();
 const router = useRouter();
 
 const mainStore = useMainStore();
 const logoutItem = computed(() => ({
-  label: "Logout",
+  label: 'Logout',
   icon: mdiLogout,
-  color: "info",
+  color: 'info',
   isLogout: true,
 }));
 
 const disconnect = () => {
   mainStore.clear();
-  router.push("/Login");
+  router.push('/Login');
 };
 const menuClick = (event, item) => {
-  emit("menu-click", event, item);
+  emit('menu-click', event, item);
 };
 
 const asideLgCloseClick = (event) => {
-  emit("aside-lg-close-click", event);
+  emit('aside-lg-close-click', event);
 };
 </script>
 

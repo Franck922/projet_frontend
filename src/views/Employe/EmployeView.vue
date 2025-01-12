@@ -9,26 +9,26 @@ import {
   mdiEye,
   mdiAccountAlertOutline,
   mdiGamepadCircle,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import FormControl from "@/components/FormControl.vue";
+} from '@mdi/js';
+import SectionMain from '@/components/SectionMain.vue';
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import FormControl from '@/components/FormControl.vue';
 
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import { useRouter } from "vue-router";
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import { useRouter } from 'vue-router';
 
-import { useMainStore } from "@/stores/main";
-import { onMounted, computed, ref } from "vue";
-import { RequestApi } from "@/boot/RequestApi";
+import { useMainStore } from '@/stores/main';
+import { onMounted, computed, ref } from 'vue';
+import { RequestApi } from '@/boot/RequestApi';
 
-import FormField from "@/components/FormField.vue";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+import FormField from '@/components/FormField.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
@@ -41,10 +41,10 @@ let listEmploye = ref([]);
 let listMois = ref([]);
 let loading = ref(true);
 let loadingAction = ref(false);
-let name = ref("");
-let surname = ref("");
-let phone = ref("");
-let salaire = ref("");
+let name = ref('');
+let surname = ref('');
+let phone = ref('');
+let salaire = ref('');
 let dateStart = ref();
 let heureArrive = ref();
 let mois = ref();
@@ -72,9 +72,9 @@ async function creerEmploye() {
     phone: phone.value,
     prenom: surname.value,
     datePriseFonction: dateStart.value,
-    admin: "/api/user_plateforms/" + mainStore.id,
+    admin: '/api/user_plateforms/' + mainStore.id,
 
-    regionDeService: "/api/region_services/1",
+    regionDeService: '/api/region_services/1',
     salaire: parseInt(salaire.value),
   };
   console.log(data);
@@ -83,7 +83,7 @@ async function creerEmploye() {
   if (response.status) {
     console.log(response.message);
 
-    toast.success("Employe ajoute avec Succes !", {
+    toast.success('Employe ajoute avec Succes !', {
       autoClose: 2000,
     });
 
@@ -91,7 +91,7 @@ async function creerEmploye() {
 
     getlistEmploye();
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -142,11 +142,11 @@ onMounted(async () => {
 const connected = () => {
   router.beforeEach(() => {
     if ((mainStore.nom = null)) {
-      console.log("------------", "Vas te connecter");
+      console.log('------------', 'Vas te connecter');
 
-      router.push("/Login");
+      router.push('/Login');
     } else {
-      console.log("------------", "Vas te connecter");
+      console.log('------------', 'Vas te connecter');
     }
   });
 };
@@ -154,7 +154,7 @@ const connected = () => {
 let _seletUser = ref();
 function setAction(user) {
   console.log(user);
-  console.log("---user");
+  console.log('---user');
   _seletUser.value = user;
   isModalActive.value = true;
   console.log(_seletUser.value);
@@ -170,21 +170,21 @@ const marquerAbesent = async () => {
   loadingAction.value = true;
   let data = {
     heureArrive: heureArrive.value,
-    employe: "/api/employes/" + _seletUser.value.id,
+    employe: '/api/employes/' + _seletUser.value.id,
     date: new Date(),
-    mois: "/api/mois/" + mois.value.id,
+    mois: '/api/mois/' + mois.value.id,
   };
   const response = await request.marquerAbesent(data);
   if (response.status) {
     await getlistEmploye();
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
 
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -195,14 +195,14 @@ function setAction3(user) {
   _seletUser.value = user;
   isModalPassword.value = true;
   console.log(_seletUser.value);
-  newPass.value = "";
+  newPass.value = '';
 }
 </script>
 
 <template>
   <CardBoxModal
-    v-model="isModalActive"
     v-if="_seletUser != null"
+    v-model="isModalActive"
     title="Marquer absence"
   >
     <p>
@@ -211,9 +211,9 @@ function setAction3(user) {
     </p>
     <FormField label="Heure d'arrive">
       <FormControl
+        v-model="heureArrive"
         type="time"
         placeholder="Heure d'arrive"
-        v-model="heureArrive"
       />
     </FormField>
 
@@ -229,8 +229,8 @@ function setAction3(user) {
   </CardBoxModal>
 
   <CardBoxModal
-    v-model="isModalStateUser"
     v-if="_seletUser != null"
+    v-model="isModalStateUser"
     title="Les absences"
     button="danger"
   >
@@ -244,8 +244,8 @@ function setAction3(user) {
       <ul>
         <li v-for="items in _seletUser.absences">
           <b>
-            Le {{ items.date.split("T")[0] }} a
-            {{ items.heure_arrive.split("T")[1].split("+")[0] }}
+            Le {{ items.date.split('T')[0] }} a
+            {{ items.heure_arrive.split('T')[1].split('+')[0] }}
           </b>
         </li>
       </ul>
@@ -274,8 +274,8 @@ function setAction3(user) {
 
     <FormField label="Date de prise de fonction">
       <FormControl
-        :icon="mdiAccount"
         v-model="dateStart"
+        :icon="mdiAccount"
         type="date"
         name="Date de prise de fonction"
       />
@@ -285,11 +285,11 @@ function setAction3(user) {
 
     <BaseButtons>
       <BaseButton
-        @click="creerEmploye"
         type="submit"
         :loading="loadingAction"
         color="info"
         label="Creer"
+        @click="creerEmploye"
       />
     </BaseButtons>
   </CardBoxModal>
@@ -304,14 +304,14 @@ function setAction3(user) {
           target="_blank"
           label="Ajouter Un employe"
           color="contrast"
-          @click="isModalCreateCB = true"
           rounded-full
           small
+          @click="isModalCreateCB = true"
         />
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
-      <CardBox class="mb-2" has-table v-else>
+      <CardBox v-else class="mb-2" has-table>
         <table>
           <thead>
             <tr>
@@ -357,7 +357,7 @@ function setAction3(user) {
                 {{ user.salaire }}
               </td>
               <td data-label="date_start">
-                {{ user.datePriseFonction.split("T")[0] }}
+                {{ user.datePriseFonction.split('T')[0] }}
               </td>
               <td data-label="date_created">
                 {{ user.date_created }}

@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { api } from "./axios";
-import { ApiEndPoint } from "./ApiEndPoint";
+import { api } from './axios';
+import { ApiEndPoint } from './ApiEndPoint';
 // import VueCookies from 'vue-cookies'
-import jwt_decode from "jwt-decode";
-import { useMainStore } from "@/stores/main";
+import jwt_decode from 'jwt-decode';
+import { useMainStore } from '@/stores/main';
 
 // import { ref } from '@vue/runtime-core';
 export class RequestApi {
@@ -23,18 +23,42 @@ export class RequestApi {
     let dataRes = { status: true };
 
     const mainStore = useMainStore();
-    api.defaults.headers.common["Authorization"] = null;
+    api.defaults.headers.common['Authorization'] = null;
     await api
       .post(this.ApiEndPoint.login, data)
       .then(async (response) => {
-        let id = jwt_decode(String(response.data.token)).id;
         // let keySecret = jwt_decode(String(response.data.token)).keySecret;
-        console.log(response.data);
-        mainStore.setUser(response.data);
-
+        console.log(response.data.user);
+        mainStore.setUser(response.data.user);
+        mainStore.setToken(response.data.access_token);
         dataRes = {
           status: true,
-          id: id,
+        };
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+        };
+      });
+    return dataRes;
+  };
+
+  /**
+   *
+   * @param {*} data   les donnees de l'utilisateur pour se connecter
+   * @returns
+   */
+  registerUsers = async (data) => {
+    // //console.log('sdddsd');
+    let dataRes = { status: true };
+
+    const mainStore = useMainStore();
+    api.defaults.headers.common['Authorization'] = null;
+    await api
+      .post(this.ApiEndPoint.register, data)
+      .then(async (response) => {
+        dataRes = {
+          status: true,
         };
       })
       .catch(() => {
@@ -58,7 +82,7 @@ export class RequestApi {
    */
   creerEmploye = async (data) => {
     // //console.log('sdddsd');
-    let dataRes = { status: true, message: "" };
+    let dataRes = { status: true, message: '' };
 
     await api
       .post(this.ApiEndPoint.employe, data)
@@ -70,14 +94,14 @@ export class RequestApi {
         } else {
           dataRes = {
             status: true,
-            message: response.data["message"],
+            message: response.data['message'],
           };
         }
       })
       .catch(() => {
         dataRes = {
           status: false,
-          message: "",
+          message: '',
         };
       });
     return dataRes;
@@ -88,11 +112,7 @@ export class RequestApi {
    * @param {*}
    * @returns
    */
-<<<<<<< HEAD
   getListVol = async () => {
-=======
-  listEmploye = async () => {
->>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
     let dataRes = { status: true };
 
     await api
@@ -121,11 +141,7 @@ export class RequestApi {
    * @param {*}
    * @returns
    */
-<<<<<<< HEAD
   getLitReservations = async () => {
-=======
-  listEmployeSecond = async () => {
->>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
     let dataRes = { status: true };
 
     await api
@@ -194,7 +210,7 @@ export class RequestApi {
    */
   creerPaiement = async (data) => {
     // //console.log('sdddsd');
-    let dataRes = { status: true, message: "" };
+    let dataRes = { status: true, message: '' };
 
     await api
       .post(this.ApiEndPoint.paiement, data)
@@ -206,14 +222,14 @@ export class RequestApi {
         } else {
           dataRes = {
             status: true,
-            message: response.data["message"],
+            message: response.data['message'],
           };
         }
       })
       .catch(() => {
         dataRes = {
           status: false,
-          message: "",
+          message: '',
         };
       });
     return dataRes;
@@ -332,7 +348,7 @@ export class RequestApi {
     let dataRes = { status: true };
 
     await api
-      .get(this.ApiEndPoint.api_postesemployes + "?employe=" + employe)
+      .get(this.ApiEndPoint.api_postesemployes + '?employe=' + employe)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
@@ -533,7 +549,7 @@ export class RequestApi {
     let dataRes = { status: true };
 
     await api
-      .get(this.ApiEndPoint.api_sanctionsemployes + "?employe=" + employe)
+      .get(this.ApiEndPoint.api_sanctionsemployes + '?employe=' + employe)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {

@@ -14,28 +14,28 @@ import {
   mdiHomeGroup,
   mdiCommentProcessing,
   mdiPhoneSettings,
-} from "@mdi/js";
+} from '@mdi/js';
 
 export default [
   {
-    to: "/",
+    to: '/',
     icon: mdiMonitor,
-    label: "Dashboard",
+    label: 'Dashboard',
   },
 
   {
-    to: "/Paiement",
+    to: '/Paiement',
     icon: mdiHomeGroup,
-    label: "Paiement",
+    label: 'Paiement',
   },
   {
-    to: "/Poste",
-    label: "Poste Employe",
+    to: '/Poste',
+    label: 'Poste Employe',
     icon: mdiAccountSwitch,
   },
   {
-    to: "/Sanction",
-    label: "Sanctions ",
+    to: '/Sanction',
+    label: 'Sanctions ',
     icon: mdiAccountSwitch,
   },
 ];

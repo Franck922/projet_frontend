@@ -1,6 +1,6 @@
 <script setup>
-import { computed, ref, onMounted } from "vue";
-import { useMainStore } from "@/stores/main";
+import { computed, ref, onMounted } from 'vue';
+import { useMainStore } from '@/stores/main';
 import {
   mdiAccountMultiple,
   mdiCartOutline,
@@ -8,22 +8,22 @@ import {
   mdiMonitorCellphone,
   mdiReload,
   mdiChartPie,
-} from "@mdi/js";
-import * as chartConfig from "@/components/Charts/chart.config.js";
-import LineChart from "@/components/Charts/LineChart.vue";
-import SectionMain from "@/components/SectionMain.vue";
-import CardBoxWidget from "@/components/CardBoxWidget.vue";
-import CardBox from "@/components/CardBox.vue";
-import TableSampleClients from "@/components/TableSampleClients.vue";
-import NotificationBar from "@/components/NotificationBar.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import CardBoxTransaction from "@/components/CardBoxTransaction.vue";
-import CardBoxClient from "@/components/CardBoxClient.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import { RequestApi } from "@/boot/RequestApi";
+} from '@mdi/js';
+import * as chartConfig from '@/components/Charts/chart.config.js';
+import LineChart from '@/components/Charts/LineChart.vue';
+import SectionMain from '@/components/SectionMain.vue';
+import CardBoxWidget from '@/components/CardBoxWidget.vue';
+import CardBox from '@/components/CardBox.vue';
+import TableSampleClients from '@/components/TableSampleClients.vue';
+import NotificationBar from '@/components/NotificationBar.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import CardBoxTransaction from '@/components/CardBoxTransaction.vue';
+import CardBoxClient from '@/components/CardBoxClient.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import { RequestApi } from '@/boot/RequestApi';
 let request = new RequestApi();
-import router from "@/router";
+import router from '@/router';
 
 const chartData = ref(null);
 const dashData = ref({ nbr_Missions: 0, nbr_commandes: 0, nbr_livraisons: 0 });
@@ -52,12 +52,12 @@ async function getDashBoard() {
   };
 }
 function projet() {
-  console.log("------");
-  router.push("utilisateurs");
+  console.log('------');
+  router.push('utilisateurs');
 }
 function commande() {
-  console.log("------");
-  router.push("commandes");
+  console.log('------');
+  router.push('commandes');
 }
 </script>
 
@@ -86,7 +86,7 @@ function commande() {
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
           :number="dashData.nbr_Missions"
-          label="Missions"
+          label="Clients"
           :navigate="projet"
         />
         <CardBoxWidget
@@ -94,7 +94,7 @@ function commande() {
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
           :number="dashData.nbr_Livraisons"
-          label="Biker"
+          label="Administrateur"
           :navigate="boutique"
         />
         <CardBoxWidget
@@ -103,7 +103,7 @@ function commande() {
           :icon="mdiAccountMultiple"
           :number="dashData.nbr_commandes"
           :navigate="commande"
-          label="Controlleur disponibles"
+          label="Reservations"
         />
         <CardBoxWidget
           trend-type="up"
@@ -112,7 +112,7 @@ function commande() {
           :number="dashData.nbr_livraisons"
           suffix=""
           :navigate="projet"
-          label="Controlleur sur le terrain"
+          label="Vols"
         />
       </div>
     </SectionMain>

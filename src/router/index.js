@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from "vue-router";
-import { useMainStore } from "@/stores/main";
+import { createRouter, createWebHistory } from 'vue-router';
+import { useMainStore } from '@/stores/main';
 
 // import Style from "@/views/StyleView.vue";
-import Home from "@/views/HomeView.vue";
+import Home from '@/views/HomeView.vue';
 
 const routes = [
   // {
@@ -16,71 +16,74 @@ const routes = [
 
   {
     meta: {
-      title: "Login",
+      title: 'Login',
     },
-    path: "/Login",
-    name: "login",
-    component: () => import("@/views/LoginView.vue"),
+    path: '/Login',
+    name: 'login',
+    component: () => import('@/views/LoginView.vue'),
   },
 
   {
     meta: {
-<<<<<<< HEAD
-      title: "Login",
+      title: 'Register',
     },
-    path: "/Login",
-    name: "login",
-    component: () => import("@/views/LoginView.vue"),
+    path: '/Register',
+    name: 'register',
+    component: () => import('@/views/RegisterView.vue'),
+  },
+
+  {
+    meta: {
+      title: 'Login',
+    },
+    path: '/Login',
+    name: 'login',
+    component: () => import('@/views/LoginView.vue'),
   },
   {
     meta: {
-      title: "Dashboard",
+      title: 'Dashboard',
     },
-    path: "/Dashboard",
-=======
-      title: "Dashboard",
-    },
-    path: "/",
->>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
-    name: "Employe",
-    component: () => import("@/views/Employe/EmployeView.vue"),
+    path: '/Dashboard',
+    name: 'Employe',
+    component: () => import('@/views/HomeView.vue'),
   },
   {
     meta: {
-      title: "Paiement",
+      title: 'Paiement',
     },
-    path: "/Paiement",
-    name: "Paiement",
-    component: () => import("@/views/Paiement/PaiementView.vue"),
+    path: '/Paiement',
+    name: 'Paiement',
+    component: () => import('@/views/Paiement/PaiementView.vue'),
   },
   {
     meta: {
-      title: "Poste",
+      title: 'Poste',
     },
-    path: "/Poste",
-    name: "Poste",
-    component: () => import("@/views/Employe/PosteView.vue"),
+    path: '/Poste',
+    name: 'Poste',
+    component: () => import('@/views/Employe/PosteView.vue'),
   },
   {
     meta: {
-      title: "Sanction",
+      title: 'Sanction',
     },
-    path: "/Sanction",
-    name: "Sanction",
-    component: () => import("@/views/Employe/SanctionView.vue"),
+    path: '/Sanction',
+    name: 'Sanction',
+    component: () => import('@/views/Employe/SanctionView.vue'),
   },
   {
     meta: {
-      title: "Error",
+      title: 'Error',
     },
-    path: "/:catchAll(.*)*",
-    name: "error",
-    component: () => import("@/views/ErrorView.vue"),
+    path: '/:catchAll(.*)*',
+    name: 'error',
+    component: () => import('@/views/ErrorView.vue'),
   },
 ];
 
 const router = createRouter({
-  base: "/",
+  base: '/',
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
@@ -89,7 +92,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to) => {
-<<<<<<< HEAD
   // const mainStore = useMainStore();
   // if (to.name != "login") {
   //   console.log("connecge------------------", mainStore.id, to.name);
@@ -103,21 +105,5 @@ router.beforeEach((to) => {
   //     router.push("/");
   //   }
   // }
-=======
-  const mainStore = useMainStore();
-
-  if (to.name != "login") {
-    console.log("connecge------------------", mainStore.id, to.name);
-    if (mainStore.id == null) {
-      router.push("/Login");
-    }
-  }
-  if (to.name == "login") {
-    if (mainStore.id != null) {
-      console.log("is login------------------");
-      router.push("/");
-    }
-  }
->>>>>>> 386f6c58e4c5190e060dcfcfa26ac230917f06b4
 });
 export default router;

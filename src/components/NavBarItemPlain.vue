@@ -1,10 +1,10 @@
 <script setup>
-import { useStyleStore } from "@/stores/style";
+import { useStyleStore } from '@/stores/style';
 
 defineProps({
   display: {
     type: String,
-    default: "flex",
+    default: 'flex',
   },
   useMargin: Boolean,
 });

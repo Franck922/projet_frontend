@@ -7,7 +7,6 @@
 // // import router from '../router';
 // const refreshAuthenticated = async () => {
 
-
 //   // if (
 //   //   VueCookies.get('refreshToken') != undefined &&
 //   //   VueCookies.get('refreshToken') != 'undefined'

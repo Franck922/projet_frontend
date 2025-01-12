@@ -1,6 +1,6 @@
-import { ApiManage } from "./ApiManage.js";
+import { ApiManage } from './ApiManage.js';
 
-import axios from "axios";
+import axios from 'axios';
 // import { refreshAuthenticated } from "./refreshAuthenticated.js";
 
 // Vue.prototype.$axios = axios
@@ -10,7 +10,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL: new ApiManage().baseUrl,
   headers: {
-    Accept: "application/json",
+    Accept: 'application/json',
   },
 });
 // if (localStorage.getItem("token") != null) {
@@ -52,29 +52,29 @@ const refreshAuthenticated = async () => {
   //   VueCookies.get('refreshToken') != 'undefined'
   // ) {
   console.log(
-    "ici  *******",
-    localStorage.getItem("refreshToken"),
-    localStorage.getItem("refreshToken")
+    'ici  *******',
+    localStorage.getItem('refreshToken'),
+    localStorage.getItem('refreshToken')
   );
   await apiR
-    .post("/api/token/refresh", {
-      refreshToken: localStorage.getItem("refreshToken"),
+    .post('/api/token/refresh', {
+      refreshToken: localStorage.getItem('refreshToken'),
     })
     .then((response) => {
-      console.log("status", response.status);
+      console.log('status', response.status);
 
       if (response.status == 201 || response.status == 200) {
-        console.log("token", String(response.data.token));
-        localStorage.setItem("token", String(response.data.token));
+        console.log('token', String(response.data.token));
+        localStorage.setItem('token', String(response.data.token));
 
         localStorage.setItem(
-          "refreshToken",
+          'refreshToken',
           String(response.data.refreshToken)
         );
         api.defaults.headers.delete;
-        api.defaults.headers.delete["Authorization"];
-        api.defaults.headers.common["Authorization"] =
-          "Bearer " + String(response.data.token);
+        api.defaults.headers.delete['Authorization'];
+        api.defaults.headers.common['Authorization'] =
+          'Bearer ' + String(response.data.token);
       }
     })
     .catch((e) => {
@@ -89,6 +89,6 @@ const refreshAuthenticated = async () => {
   // }
 };
 const delette = () => {
-  delete axios.defaults.headers.common["Authorization"];
+  delete axios.defaults.headers.common['Authorization'];
 };
 export { axios, api, delette };

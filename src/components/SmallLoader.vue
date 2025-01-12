@@ -1,5 +1,12 @@
-<script setup>
-</script>
+<script setup></script>
+<template>
+  <div class="loader-container">
+    <div class="loader" role="status">
+      <span class="loader-text">Loading...</span>
+    </div>
+  </div>
+</template>
+
 <style scoped>
 .loader-container {
   display: flex;
@@ -42,11 +49,3 @@
   clip: rect(0, 0, 0, 0);
 }
 </style>
-
-<template>
-  <div class="loader-container">
-    <div class="loader" role="status">
-      <span class="loader-text">Loading...</span>
-    </div>
-  </div>
-</template>

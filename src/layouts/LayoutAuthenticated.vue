@@ -1,17 +1,17 @@
 <script setup>
-import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import menuAside from "@/menuAside.js";
-import menuNavBar from "@/menuNavBar.js";
+import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import menuAside from '@/menuAside.js';
+import menuNavBar from '@/menuNavBar.js';
 // import { useMainStore } from "@/stores/main.js";
-import { useStyleStore } from "@/stores/style.js";
-import BaseIcon from "@/components/BaseIcon.vue";
-import FormControl from "@/components/FormControl.vue";
-import NavBar from "@/components/NavBar.vue";
-import NavBarItemPlain from "@/components/NavBarItemPlain.vue";
-import AsideMenu from "@/components/AsideMenu.vue";
-import FooterBar from "@/components/FooterBar.vue";
+import { useStyleStore } from '@/stores/style.js';
+import BaseIcon from '@/components/BaseIcon.vue';
+import FormControl from '@/components/FormControl.vue';
+import NavBar from '@/components/NavBar.vue';
+import NavBarItemPlain from '@/components/NavBarItemPlain.vue';
+import AsideMenu from '@/components/AsideMenu.vue';
+import FooterBar from '@/components/FooterBar.vue';
 
 // useMainStore().setUser({
 //   name: " ",
@@ -20,7 +20,7 @@ import FooterBar from "@/components/FooterBar.vue";
 //     "https://avatars.dicebear.com/api/avataaars/example.svg?options[top][]=shortHair&options[accessoriesChance]=93",
 // });
 
-const layoutAsidePadding = "xl:pl-60";
+const layoutAsidePadding = 'xl:pl-60';
 
 const styleStore = useStyleStore();
 

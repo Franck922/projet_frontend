@@ -48,18 +48,18 @@ Next, copy these files **from justboil/Horizon-admin project** directory **to nu
 #### In nuxt.config.ts
 
 ```javascript
-import { defineNuxtConfig } from "nuxt";
+import { defineNuxtConfig } from 'nuxt';
 
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
-  buildModules: ["@pinia/nuxt"],
+  buildModules: ['@pinia/nuxt'],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-  css: ["@/assets/css/main.css"],
+  css: ['@/assets/css/main.css'],
 });
 ```
 
@@ -70,12 +70,12 @@ Replace `content`:
 ```js
 module.exports = {
   content: [
-    "./composables/**/*.{js,vue,ts}",
-    "./components/**/*.{js,vue,ts}",
-    "./layouts/**/*.vue",
-    "./pages/**/*.vue",
-    "./plugins/**/*.{js,ts}",
-    "app.vue",
+    './composables/**/*.{js,vue,ts}',
+    './components/**/*.{js,vue,ts}',
+    './layouts/**/*.vue',
+    './pages/**/*.vue',
+    './plugins/**/*.{js,ts}',
+    'app.vue',
   ],
   // ...
 };
@@ -85,12 +85,12 @@ module.exports = {
 
 ```vue
 <script setup>
-import { useStyleStore } from "@/stores/style.js";
-import { darkModeKey, styleKey } from "@/config.js";
+import { useStyleStore } from '@/stores/style.js';
+import { darkModeKey, styleKey } from '@/config.js';
 
 useHead({
   titleTemplate: (titleChunk) => {
-    const titleBase = "Admin One Vue 3 Tailwind";
+    const titleBase = 'Admin One Vue 3 Tailwind';
 
     return titleChunk ? `${titleChunk} - ${titleBase}` : titleBase;
   },
@@ -99,19 +99,19 @@ useHead({
 const styleStore = useStyleStore();
 
 const currentStyle =
-  typeof localStorage !== "undefined" && localStorage[styleKey]
+  typeof localStorage !== 'undefined' && localStorage[styleKey]
     ? localStorage[styleKey]
-    : "basic";
+    : 'basic';
 
 styleStore.setStyle(currentStyle);
 
 const currentStoredDarkMode =
-  typeof localStorage !== "undefined" && localStorage[darkModeKey] === "1";
+  typeof localStorage !== 'undefined' && localStorage[darkModeKey] === '1';
 
 if (
   (!currentStoredDarkMode &&
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+    typeof window !== 'undefined' &&
+    window.matchMedia('(prefers-color-scheme: dark)').matches) ||
   currentStoredDarkMode
 ) {
   styleStore.setDarkMode(true);
@@ -134,80 +134,80 @@ Remove `axios`, as you'll likely going to use Nuxt's `useFetch`. Then add some s
 ```javascript
 // import axios from 'axios'
 
-export const useMainStore = defineStore("main", {
+export const useMainStore = defineStore('main', {
   state: () => ({
     // ...
 
     clients: [
       {
         id: 19,
-        avatar: "https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg",
-        login: "percy64",
-        name: "Howell Hand",
-        company: "Kiehn-Green",
-        city: "Emelyside",
+        avatar: 'https://avatars.dicebear.com/v2/gridy/Howell-Hand.svg',
+        login: 'percy64',
+        name: 'Howell Hand',
+        company: 'Kiehn-Green',
+        city: 'Emelyside',
         progress: 70,
-        created: "Mar 3, 2021",
+        created: 'Mar 3, 2021',
       },
       {
         id: 11,
-        avatar: "https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg",
-        login: "dare.concepcion",
-        name: "Hope Howe",
-        company: "Nolan Inc",
-        city: "Paristown",
+        avatar: 'https://avatars.dicebear.com/v2/gridy/Hope-Howe.svg',
+        login: 'dare.concepcion',
+        name: 'Hope Howe',
+        company: 'Nolan Inc',
+        city: 'Paristown',
         progress: 68,
-        created: "Dec 1, 2021",
+        created: 'Dec 1, 2021',
       },
       {
         id: 32,
-        avatar: "https://avatars.dicebear.com/v2/gridy/Nelson-Jerde.svg",
-        login: "geovanni.kessler",
-        name: "Nelson Jerde",
-        company: "Nitzsche LLC",
-        city: "Jailynbury",
+        avatar: 'https://avatars.dicebear.com/v2/gridy/Nelson-Jerde.svg',
+        login: 'geovanni.kessler',
+        name: 'Nelson Jerde',
+        company: 'Nitzsche LLC',
+        city: 'Jailynbury',
         progress: 49,
-        created: "May 18, 2021",
+        created: 'May 18, 2021',
       },
       {
         id: 22,
-        avatar: "https://avatars.dicebear.com/v2/gridy/Kim-Weimann.svg",
-        login: "macejkovic.dashawn",
-        name: "Kim Weimann",
-        company: "Brown-Lueilwitz",
-        city: "New Emie",
+        avatar: 'https://avatars.dicebear.com/v2/gridy/Kim-Weimann.svg',
+        login: 'macejkovic.dashawn',
+        name: 'Kim Weimann',
+        company: 'Brown-Lueilwitz',
+        city: 'New Emie',
         progress: 38,
-        created: "May 4, 2021",
+        created: 'May 4, 2021',
       },
     ],
     history: [
       {
         amount: 375.53,
-        name: "Home Loan Account",
-        date: "3 days ago",
-        type: "deposit",
-        business: "Turcotte",
+        name: 'Home Loan Account',
+        date: '3 days ago',
+        type: 'deposit',
+        business: 'Turcotte',
       },
       {
         amount: 470.26,
-        name: "Savings Account",
-        date: "3 days ago",
-        type: "payment",
-        business: "Murazik - Graham",
+        name: 'Savings Account',
+        date: '3 days ago',
+        type: 'payment',
+        business: 'Murazik - Graham',
       },
       {
         amount: 971.34,
-        name: "Checking Account",
-        date: "5 days ago",
-        type: "invoice",
-        business: "Fahey - Keebler",
+        name: 'Checking Account',
+        date: '5 days ago',
+        type: 'invoice',
+        business: 'Fahey - Keebler',
       },
       {
         amount: 374.63,
-        name: "Auto Loan Account",
-        date: "7 days ago",
-        type: "withdrawal",
-        business: "Collier - Hintz",
+        name: 'Auto Loan Account',
+        date: '7 days ago',
+        type: 'withdrawal',
+        business: 'Collier - Hintz',
       },
     ],
   }),

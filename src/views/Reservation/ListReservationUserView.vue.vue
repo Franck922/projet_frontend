@@ -9,26 +9,26 @@ import {
   mdiEye,
   mdiAccountAlertOutline,
   mdiGamepadCircle,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
-import FormControl from "@/components/FormControl.vue";
+} from '@mdi/js';
+import SectionMain from '@/components/SectionMain.vue';
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import FormControl from '@/components/FormControl.vue';
 
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import { useRouter } from "vue-router";
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import { useRouter } from 'vue-router';
 
-import { useMainStore } from "@/stores/main";
-import { onMounted, computed, ref } from "vue";
-import { RequestApi } from "@/boot/RequestApi";
+import { useMainStore } from '@/stores/main';
+import { onMounted, computed, ref } from 'vue';
+import { RequestApi } from '@/boot/RequestApi';
 
-import FormField from "@/components/FormField.vue";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+import FormField from '@/components/FormField.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
@@ -46,9 +46,9 @@ let listMois = ref([]);
 let listSanction = ref([]);
 let loading = ref(true);
 let loadingAction = ref(false);
-let employe = ref("");
-let sanction = ref("");
-let titresanction = ref("");
+let employe = ref('');
+let sanction = ref('');
+let titresanction = ref('');
 let montantsanction = ref(0);
 let mois = ref();
 
@@ -84,7 +84,7 @@ async function getlistEmploye() {
     response.data.forEach((element) => {
       listEmploye.value.push({
         id: element.id,
-        label: element.nom + " " + element.prenom,
+        label: element.nom + ' ' + element.prenom,
       });
     });
   } else {
@@ -150,11 +150,11 @@ onMounted(async () => {
 const connected = () => {
   router.beforeEach(() => {
     if ((mainStore.nom = null)) {
-      console.log("------------", "Vas te connecter");
+      console.log('------------', 'Vas te connecter');
 
-      router.push("/Login");
+      router.push('/Login');
     } else {
-      console.log("------------", "Vas te connecter");
+      console.log('------------', 'Vas te connecter');
     }
   });
 };
@@ -162,7 +162,7 @@ const connected = () => {
 let _seletUser = ref();
 function setAction(user) {
   console.log(user);
-  console.log("---user");
+  console.log('---user');
   _seletUser.value = user;
   isModalActive.value = true;
   console.log(_seletUser.value);
@@ -192,21 +192,21 @@ async function getlistMois() {
 const giveSanction = async () => {
   loadingAction.value = true;
   let data = {
-    sanction: "/api/sanctions/" + sanction.value.id,
+    sanction: '/api/sanctions/' + sanction.value.id,
 
-    employe: "/api/employes/" + employe.value.id,
-    mois: "/api/mois/" + mois.value.id,
+    employe: '/api/employes/' + employe.value.id,
+    mois: '/api/mois/' + mois.value.id,
   };
   const response = await request.giveSanction(data);
   if (response.status) {
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     await getSanctionEmploye();
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -220,14 +220,14 @@ const newSanction = async () => {
   };
   const response = await request.newSanction(data);
   if (response.status) {
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     await getlistSanction();
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -244,7 +244,7 @@ const SanctionEmployeFilter = async () => {
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingAction.value = false;
@@ -324,7 +324,7 @@ const SanctionEmployeFilter = async () => {
     />
 
     <Loader v-if="loadingAction" />
-    <CardBox class="mb-2" has-table v-else>
+    <CardBox v-else class="mb-2" has-table>
       <table>
         <thead>
           <tr>
@@ -363,8 +363,8 @@ const SanctionEmployeFilter = async () => {
             </td>
 
             <td data-label="date_sanction">
-              {{ sanctionUser.dateCreated.split("T")[0] }} a
-              {{ sanctionUser.dateCreated.split("T")[1] }}
+              {{ sanctionUser.dateCreated.split('T')[0] }} a
+              {{ sanctionUser.dateCreated.split('T')[1] }}
             </td>
             <!-- 
             <td class="before:hidden lg:w-1 whitespace-nowrap">
@@ -417,30 +417,30 @@ const SanctionEmployeFilter = async () => {
           target="_blank"
           label="Voir historique de sanction d'un employe"
           color="contrast"
-          @click="isModalSanction = true"
           rounded-full
           small
+          @click="isModalSanction = true"
         />
         <BaseButton
           target="_blank"
           label="Nouvelle sanction"
           color="contrast"
-          @click="isModalActiveNewSanction = true"
           rounded-full
           small
+          @click="isModalActiveNewSanction = true"
         />
         <BaseButton
           target="_blank"
           label="Sanctioner Un employe"
           color="contrast"
-          @click="isModalActive = true"
           rounded-full
           small
+          @click="isModalActive = true"
         />
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
-      <CardBox class="mb-2" has-table v-else>
+      <CardBox v-else class="mb-2" has-table>
         <table>
           <thead>
             <tr>
@@ -476,8 +476,8 @@ const SanctionEmployeFilter = async () => {
               </td>
 
               <td data-label="date_sanction">
-                {{ sanctionUser.dateCreated.split("T")[0] }} a
-                {{ sanctionUser.dateCreated.split("T")[1] }}
+                {{ sanctionUser.dateCreated.split('T')[0] }} a
+                {{ sanctionUser.dateCreated.split('T')[1] }}
               </td>
               <!-- <td class="before:hidden lg:w-1 whitespace-nowrap">
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>

@@ -1,12 +1,12 @@
 <script setup>
-import { computed, ref, watch } from "vue";
-import { mdiEye, mdiTrashCan } from "@mdi/js";
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import TableCheckboxCell from "@/components/TableCheckboxCell.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButtons from "@/components/BaseButtons.vue";
-import BaseButton from "@/components/BaseButton.vue";
-import UserAvatar from "@/components/UserAvatar.vue";
+import { computed, ref, watch } from 'vue';
+import { mdiEye, mdiTrashCan } from '@mdi/js';
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import TableCheckboxCell from '@/components/TableCheckboxCell.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import UserAvatar from '@/components/UserAvatar.vue';
 const props = defineProps({
   listCommandes: {
     type: Array,
@@ -24,10 +24,13 @@ const currentPage = ref(0);
 let items = ref(props.listCommandes);
 
 // Watch for changes in the listCommandes prop
-watch(() => props.listCommandes, () => {
-  // Update the items.value when the prop value changes
-  items.value.value = props.listCommandes;
-});
+watch(
+  () => props.listCommandes,
+  () => {
+    // Update the items.value when the prop value changes
+    items.value.value = props.listCommandes;
+  }
+);
 
 console.log(items.value);
 const itemsPaginated = computed(() =>
@@ -50,7 +53,6 @@ const pagesList = computed(() => {
 
   return pagesList;
 });
-
 </script>
 
 <template>
@@ -59,16 +61,19 @@ const pagesList = computed(() => {
     <p>This is sample modal</p>
   </CardBoxModal>
 
-  <CardBoxModal v-model="isModalDangerActive" title="Please confirm" button="danger" has-cancel>
+  <CardBoxModal
+    v-model="isModalDangerActive"
+    title="Please confirm"
+    button="danger"
+    has-cancel
+  >
     <p>Lorem ipsum dolor sit amet <b>adipiscing elit</b></p>
     <p>This is sample modal</p>
   </CardBoxModal>
 
-
   <table>
     <thead>
       <tr>
-
         <th />
         <th>Code de la Commande</th>
         <th>Point de livraison</th>
@@ -80,9 +85,11 @@ const pagesList = computed(() => {
     </thead>
     <tbody>
       <tr v-for="commande in itemsPaginated" :key="commande.id">
-
         <td class="border-b-0 lg:w-6 before:hidden">
-          <UserAvatar :username="commande.name" class="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
+          <UserAvatar
+            :username="commande.name"
+            class="w-24 h-24 mx-auto lg:w-6 lg:h-6"
+          />
         </td>
         <td data-label="codeCommande">
           {{ commande.codeCommandes }}
@@ -102,12 +109,26 @@ const pagesList = computed(() => {
           </progress>
         </td> -->
         <td data-label="Created" class="lg:w-1 whitespace-nowrap">
-          <small class="text-gray-500 dark:text-slate-400" :title="commande.created">{{ commande.created }}</small>
+          <small
+            class="text-gray-500 dark:text-slate-400"
+            :title="commande.created"
+            >{{ commande.created }}</small
+          >
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
-            <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
-            <BaseButton color="danger" :icon="mdiTrashCan" small @click="isModalDangerActive = true" />
+            <BaseButton
+              color="info"
+              :icon="mdiEye"
+              small
+              @click="isModalActive = true"
+            />
+            <BaseButton
+              color="danger"
+              :icon="mdiTrashCan"
+              small
+              @click="isModalDangerActive = true"
+            />
           </BaseButtons>
         </td>
       </tr>
@@ -116,8 +137,15 @@ const pagesList = computed(() => {
   <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
     <BaseLevel>
       <BaseButtons>
-        <BaseButton v-for="page in pagesList" :key="page" :active="page === currentPage" :label="page + 1"
-          :color="page === currentPage ? 'lightDark' : 'whiteDark'" small @click="currentPage = page" />
+        <BaseButton
+          v-for="page in pagesList"
+          :key="page"
+          :active="page === currentPage"
+          :label="page + 1"
+          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
+          small
+          @click="currentPage = page"
+        />
       </BaseButtons>
       <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
     </BaseLevel>

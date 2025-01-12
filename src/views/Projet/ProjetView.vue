@@ -10,22 +10,22 @@ import {
   mdiTrashCan,
   mdiPlusBox,
   mdiInformationVariantCircle,
-} from "@mdi/js";
-import SectionMain from "@/components/SectionMain.vue";
-import CardBox from "@/components/CardBox.vue";
-import LayoutAuthenticated from "@/layouts/LayoutAuthenticated.vue";
-import SectionTitleLineWithButton from "@/components/SectionTitleLineWithButton.vue";
+} from '@mdi/js';
+import SectionMain from '@/components/SectionMain.vue';
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
 
-import FormField from "@/components/FormField.vue";
-import FormControl from "@/components/FormControl.vue";
-import CardBoxModal from "@/components/CardBoxModal.vue";
-import BaseLevel from "@/components/BaseLevel.vue";
-import BaseButton from "@/components/BaseButton.vue";
+import FormField from '@/components/FormField.vue';
+import FormControl from '@/components/FormControl.vue';
+import CardBoxModal from '@/components/CardBoxModal.vue';
+import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButton from '@/components/BaseButton.vue';
 // import UserAvatar from "@/components/UserAvatar.vue";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
-import { onMounted, computed, ref } from "vue";
-import { RequestApi } from "@/boot/RequestApi";
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
+import { onMounted, computed, ref } from 'vue';
+import { RequestApi } from '@/boot/RequestApi';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
@@ -37,9 +37,9 @@ const perPage = ref(5);
 
 const currentPage = ref(0);
 let loading = ref(true);
-let titre = ref("");
-let webhook = ref("");
-let description = ref("");
+let titre = ref('');
+let webhook = ref('');
+let description = ref('');
 let reloading = ref(true);
 let Datas = ref([]);
 
@@ -93,16 +93,16 @@ const newProjet = async () => {
   const response = await request.newProjet(data);
   if (response.status) {
     await getProjetList();
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
-    titre.value = "";
-    webhook.value = "";
-    description.value = "";
+    titre.value = '';
+    webhook.value = '';
+    description.value = '';
     isModalActive.value = false;
     loadingUpdate.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingUpdate.value = false;
@@ -115,25 +115,25 @@ const regeneateProjetKey = async (MissionsecretKey) => {
   const response = await request.keyRefreshProjet(MissionsecretKey);
   if (response.status) {
     await getProjetList();
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     loadingUpdate.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
     loadingUpdate.value = false;
   }
 };
 
-let MissionsecretKey = ref("");
+let MissionsecretKey = ref('');
 const seeInfoprojet = async (projet) => {
   titre.value = projet.titre;
   webhook.value = projet.webhook;
   MissionsecretKey.value = projet.MissionsecretKey;
 
-  description.value = "";
+  description.value = '';
   isModalUpdate.value = true;
 };
 
@@ -148,23 +148,23 @@ const updaeProjet = async () => {
   const response = await request.updateProjet(data);
   if (response.status) {
     await getProjetList();
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     isModalUpdate.value = false;
-    titre.value = "";
-    webhook.value = "";
-    description.value = "";
+    titre.value = '';
+    webhook.value = '';
+    description.value = '';
     loadingUpdate.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
-    titre.value = "";
-    webhook.value = "";
+    titre.value = '';
+    webhook.value = '';
     isModalUpdate.value = false;
 
-    description.value = "";
+    description.value = '';
     loadingUpdate.value = false;
   }
 };
@@ -175,22 +175,22 @@ const stateProjet = async () => {
   const response = await request.changestatusProjet(MissionsecretKey.value);
   if (response.status) {
     await getProjetList();
-    toast.success("Succes !", {
+    toast.success('Succes !', {
       autoClose: 2000,
     });
     isModalUpdate.value = false;
-    titre.value = "";
-    webhook.value = "";
-    description.value = "";
+    titre.value = '';
+    webhook.value = '';
+    description.value = '';
     loadingUpdate.value = false;
   } else {
-    toast.error("Une erreur est survenue !", {
+    toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
-    titre.value = "";
-    webhook.value = "";
+    titre.value = '';
+    webhook.value = '';
     isModalUpdate.value = false;
-    description.value = "";
+    description.value = '';
     loadingUpdate.value = false;
   }
 };

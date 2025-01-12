@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { api } from "./axios";
-import { ApiEndPoint } from "./ApiEndPoint";
+import { api } from './axios';
+import { ApiEndPoint } from './ApiEndPoint';
 // import VueCookies from 'vue-cookies'
-import jwt_decode from "jwt-decode";
-import { useMainStore } from "@/stores/main";
+import jwt_decode from 'jwt-decode';
+import { useMainStore } from '@/stores/main';
 
 // import { ref } from '@vue/runtime-core';
 export class RequestApi {
@@ -68,7 +68,7 @@ export class RequestApi {
     let dataRes = { status: true };
 
     await api
-      .get(this.ApiEndPoint.api_sanctionsemployes + "?employe=" + employe)
+      .get(this.ApiEndPoint.api_sanctionsemployes + '?employe=' + employe)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
