@@ -48,13 +48,24 @@ const routes = [
     name: 'Employe',
     component: () => import('@/views/HomeView.vue'),
   },
+
   {
     meta: {
-      title: 'Paiement',
+      title: 'Vols',
     },
-    path: '/Paiement',
-    name: 'Paiement',
-    component: () => import('@/views/Paiement/PaiementView.vue'),
+    path: '/Vols',
+    name: 'Vols',
+    component: () => import('@/views/Vols/DashBoardVolView.vue'),
+  },
+
+  {
+    meta: {
+      title: 'Utilisateurs',
+    },
+    path: '/Utilisateurs',
+    name: 'Utilisateurs',
+    component: () =>
+      import('@/views/Utilisateurs/DashBoardUtilisateurView.vue'),
   },
   {
     meta: {

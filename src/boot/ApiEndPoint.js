@@ -1,13 +1,9 @@
 export class ApiEndPoint {
   login = '/api/login';
-  register = '/api/users';
+  user = '/api/users';
 
   // Reservation
-  lsit_vol = '/api/list-vols';
-  reservation = '/api/reservation';
-
-  // user
-  list_user = '/users';
-  make_admin = '/users-admin';
-  reservationAll = '/api/reservation-all';
+  vol = '/api/flights';
+  dashboard_stats = '/api/dashboard-stats';
+  reservation = '/api/reservations';
 }

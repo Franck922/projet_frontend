@@ -26,7 +26,12 @@ let request = new RequestApi();
 import router from '@/router';
 
 const chartData = ref(null);
-const dashData = ref({ nbr_Missions: 0, nbr_commandes: 0, nbr_livraisons: 0 });
+const dashData = ref({
+  total_users: 0,
+  total_flights: 0,
+  total_admins: 0,
+  total_reservations: 0,
+});
 
 const fillChartData = () => {
   chartData.value = chartConfig.sampleChartData();
@@ -38,18 +43,32 @@ const clientBarItems = computed(() => mainStore.clients.slice(0, 4));
 
 const transactionBarItems = computed(() => mainStore.history);
 onMounted(async () => {
-  // await getDashBoard();
+  await getDashBoard();
   fillChartData();
 });
 
 let loading = ref(true);
-let reloading = ref(true);
+let total_flights = ref(0);
+let total_admins = ref(0);
+let total_users = ref(0);
+let total_reservations = ref(0);
 async function getDashBoard() {
-  await request.getListAllTransaction();
-  dashData.value = {
-    nbr_Missions: mainStore.listProjet.length,
-    nbr_Livraisons: mainStore.listLivraisons.length,
-  };
+  console.log('------');
+
+  loading.value = false;
+  const response = await request.getStats();
+  console.log('------', response);
+
+  if (response.status == true) {
+    total_users.value = response.data.total_users;
+    total_flights.value = response.data.total_flights;
+    total_admins.value = response.data.total_admins;
+    total_reservations.value = response.data.total_reservations;
+    loading.value = false;
+  } else {
+    loading.value = false;
+  }
+  console.log('------', dashData.value);
 }
 function projet() {
   console.log('------');
@@ -85,7 +104,7 @@ function commande() {
           trend-type="up"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="dashData.nbr_Missions"
+          :number="total_users"
           label="Clients"
           :navigate="projet"
         />
@@ -93,7 +112,7 @@ function commande() {
           trend-type="up"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="dashData.nbr_Livraisons"
+          :number="total_admins"
           label="Administrateur"
           :navigate="boutique"
         />
@@ -101,7 +120,7 @@ function commande() {
           trend-type="up"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="dashData.nbr_commandes"
+          :number="total_reservations"
           :navigate="commande"
           label="Reservations"
         />
@@ -109,7 +128,7 @@ function commande() {
           trend-type="up"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="dashData.nbr_livraisons"
+          :number="total_flights"
           suffix=""
           :navigate="projet"
           label="Vols"

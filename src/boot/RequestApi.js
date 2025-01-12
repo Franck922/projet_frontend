@@ -49,13 +49,11 @@ export class RequestApi {
    * @returns
    */
   registerUsers = async (data) => {
-    // //console.log('sdddsd');
     let dataRes = { status: true };
 
-    const mainStore = useMainStore();
     api.defaults.headers.common['Authorization'] = null;
     await api
-      .post(this.ApiEndPoint.register, data)
+      .post(this.ApiEndPoint.user, data)
       .then(async (response) => {
         dataRes = {
           status: true,
@@ -68,24 +66,51 @@ export class RequestApi {
       });
     return dataRes;
   };
-  /**
-   *
-   *
-   * Start  Mission
-   *
-   *
-   */
+
   /**
    *
    * @param {*}
    * @returns
    */
-  creerEmploye = async (data) => {
+  getStats = async () => {
+    let dataRes = { status: true };
+
+    await api
+      .get(this.ApiEndPoint.dashboard_stats)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+            data: response.data,
+          };
+        } else {
+          dataRes = {
+            status: false,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+        };
+      });
+    return dataRes;
+  };
+
+  /**
+   *
+   *
+   * VOl
+   *
+   * @param {*}
+   * @returns
+   */
+  newVol = async (data) => {
     // //console.log('sdddsd');
     let dataRes = { status: true, message: '' };
 
     await api
-      .post(this.ApiEndPoint.employe, data)
+      .post(this.ApiEndPoint.vol, data)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
@@ -94,7 +119,7 @@ export class RequestApi {
         } else {
           dataRes = {
             status: true,
-            message: response.data['message'],
+            message: response.data,
           };
         }
       })
@@ -107,6 +132,70 @@ export class RequestApi {
     return dataRes;
   };
 
+  /**
+   *
+   *
+   * @param {*}
+   * @returns
+   */
+  updateVol = async (idVol, data) => {
+    // //console.log('sdddsd');
+    let dataRes = { status: true, message: '' };
+
+    await api
+      .patch(this.ApiEndPoint.vol + '/' + idVol, data)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+          };
+        } else {
+          dataRes = {
+            status: true,
+            message: response.data,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+          message: '',
+        };
+      });
+    return dataRes;
+  };
+
+  /**
+   *
+   * @param {*}
+   * @returns
+   */
+  deleteVol = async (idVol) => {
+    // //console.log('sdddsd');
+    let dataRes = { status: true, message: '' };
+
+    await api
+      .delete(this.ApiEndPoint.vol + '/' + idVol)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+          };
+        } else {
+          dataRes = {
+            status: true,
+            message: response.data,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+          message: '',
+        };
+      });
+    return dataRes;
+  };
   /**
    *
    * @param {*}
@@ -116,7 +205,7 @@ export class RequestApi {
     let dataRes = { status: true };
 
     await api
-      .get(this.ApiEndPoint.employe)
+      .get(this.ApiEndPoint.vol)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
@@ -136,84 +225,21 @@ export class RequestApi {
       });
     return dataRes;
   };
+
   /**
+   *
+   *
+   * User
    *
    * @param {*}
    * @returns
    */
-  getLitReservations = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.employe_second)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   *
-   * Start  Employer
-   *
-   *
-   */
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  marquerAbesent = async (data) => {
-    // //console.log('sdddsd');
-    let dataRes = { status: true };
-
-    await api
-      .post(this.ApiEndPoint.absences, data)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  creerPaiement = async (data) => {
+  newUser = async (data) => {
     // //console.log('sdddsd');
     let dataRes = { status: true, message: '' };
 
     await api
-      .post(this.ApiEndPoint.paiement, data)
+      .post(this.ApiEndPoint.user, data)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
@@ -222,7 +248,40 @@ export class RequestApi {
         } else {
           dataRes = {
             status: true,
-            message: response.data['message'],
+            message: response.data,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+          message: '',
+        };
+      });
+    return dataRes;
+  };
+
+  /**
+   *
+   *
+   * @param {*}
+   * @returns
+   */
+  updateUser = async (idUser, data) => {
+    // //console.log('sdddsd');
+    let dataRes = { status: true, message: '' };
+
+    await api
+      .patch(this.ApiEndPoint.user + '/' + idUser, data)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+          };
+        } else {
+          dataRes = {
+            status: true,
+            message: response.data,
           };
         }
       })
@@ -240,242 +299,12 @@ export class RequestApi {
    * @param {*}
    * @returns
    */
-  listPaiement = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.paiement)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listMois = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.mois)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   *
-   * Start poste part
-   *
-   *
-   */
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listPosteEmploye = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.api_postesemployes)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   *
-   * Start poste part
-   *
-   *
-   */
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listPosteEmployeFilter = async (employe) => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.api_postesemployes + '?employe=' + employe)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-  /**
-   *
-   *
-   * Start poste part
-   *
-   *
-   */
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  newPoste = async (data) => {
-    let dataRes = { status: true };
-
-    await api
-      .post(this.ApiEndPoint.postes, data)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listPoste = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.postes)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listTypePoste = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.type_postes)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  affectToPoste = async (data) => {
+  deleteUser = async (idUser) => {
     // //console.log('sdddsd');
-    let dataRes = { status: true };
+    let dataRes = { status: true, message: '' };
 
     await api
-      .post(this.ApiEndPoint.api_postesemployes, data)
+      .delete(this.ApiEndPoint.user + '/' + idUser)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
@@ -483,174 +312,34 @@ export class RequestApi {
           };
         } else {
           dataRes = {
-            status: false,
+            status: true,
+            message: response.data,
           };
         }
       })
       .catch(() => {
         dataRes = {
           status: false,
+          message: '',
         };
       });
     return dataRes;
   };
-  // Sanction bloc
-
-  /**
-   *
-   *
-   * Start sanction part
-   *
-   *
-   */
   /**
    *
    * @param {*}
    * @returns
    */
-  listSanctionEmploye = async () => {
+  getListUser = async () => {
     let dataRes = { status: true };
 
     await api
-      .get(this.ApiEndPoint.api_sanctionsemployes)
+      .get(this.ApiEndPoint.user)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
             status: true,
             data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   *
-   * Start sanction part
-   *
-   *
-   */
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listSanctionEmployeFilter = async (employe) => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.api_sanctionsemployes + '?employe=' + employe)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-  /**
-   *
-   *
-   * Start sanction part
-   *
-   *
-   */
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  newSanction = async (data) => {
-    let dataRes = { status: true };
-
-    await api
-      .post(this.ApiEndPoint.sanctions, data)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  listSanction = async () => {
-    let dataRes = { status: true };
-
-    await api
-      .get(this.ApiEndPoint.sanctions)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
-            data: response.data,
-          };
-        } else {
-          dataRes = {
-            status: false,
-          };
-        }
-      })
-      .catch(() => {
-        dataRes = {
-          status: false,
-        };
-      });
-    return dataRes;
-  };
-
-  /**
-   *
-   * @param {*}
-   * @returns
-   */
-  giveSanction = async (data) => {
-    // //console.log('sdddsd');
-    let dataRes = { status: true };
-
-    await api
-      .post(this.ApiEndPoint.api_sanctionsemployes, data)
-      .then(async (response) => {
-        if (response.status == 201 || response.status == 200) {
-          dataRes = {
-            status: true,
           };
         } else {
           dataRes = {

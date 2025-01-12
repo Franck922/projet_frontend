@@ -18,24 +18,23 @@ import {
 
 export default [
   {
-    to: '/',
+    to: '/Dashboard',
     icon: mdiMonitor,
     label: 'Dashboard',
   },
-
   {
-    to: '/Paiement',
+    to: '/Vols',
     icon: mdiHomeGroup,
-    label: 'Paiement',
+    label: 'Vols',
   },
   {
-    to: '/Poste',
-    label: 'Poste Employe',
+    to: '/Reservations',
+    label: 'Reservations',
     icon: mdiAccountSwitch,
   },
   {
-    to: '/Sanction',
-    label: 'Sanctions ',
+    to: '/Utilisateurs',
+    label: 'Utilisateurs',
     icon: mdiAccountSwitch,
   },
 ];
