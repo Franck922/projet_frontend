@@ -272,7 +272,7 @@ export class RequestApi {
     let dataRes = { status: true, message: '' };
 
     await api
-      .patch(this.ApiEndPoint.user + '/' + idUser, data)
+      .patch(this.ApiEndPoint.user + '/update-role/' + idUser, data)
       .then(async (response) => {
         if (response.status == 201 || response.status == 200) {
           dataRes = {
@@ -299,7 +299,7 @@ export class RequestApi {
    * @param {*}
    * @returns
    */
-  deleteUser = async (idUser) => {
+  changeStatus = async (idUser) => {
     // //console.log('sdddsd');
     let dataRes = { status: true, message: '' };
 
