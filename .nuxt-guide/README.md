@@ -237,13 +237,13 @@ export const useMainStore = defineStore('main', {
 
 ## Copy pages
 
-Let's copy `views/LoginView.vue` with a guest layout and `views/HomeView.vue` with an authenticated layout.
+Let's copy `views/View.vue` with a guest layout and `views/HomeView.vue` with an authenticated layout.
 
 These pages will then be available under `/` and `/dashboard` url paths.
 
 #### LoginView.vue
 
-Copy `views/LoginView.vue` to `pages/index.vue`
+Copy `views/View.vue` to `pages/index.vue`
 
 Then, wrap the entire template with `<div>` and replace `<LayoutGuest>` with `<NuxtLayout>`
 

@@ -161,10 +161,10 @@ onMounted(async () => {
 
 const connected = () => {
   router.beforeEach(() => {
-    if ((mainStore.nom = null)) {
+    if ((mainStore.name = null)) {
       console.log('------------', 'Vas te connecter');
 
-      router.push('/Login');
+      router.push('/');
     } else {
       console.log('------------', 'Vas te connecter');
     }

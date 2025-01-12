@@ -38,7 +38,7 @@ async function submit() {
   const response = await request.registerUsers(data);
   console.log(response.status);
   if (response.status == true) {
-    router.push('/Login');
+    router.push('/');
     loading.value = false;
   } else {
     loading.value = false;

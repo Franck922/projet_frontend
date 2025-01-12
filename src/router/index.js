@@ -18,9 +18,9 @@ const routes = [
     meta: {
       title: 'Login',
     },
-    path: '/Login',
+    path: '/',
     name: 'login',
-    component: () => import('@/views/LoginView.vue'),
+    component: () => import('@/views/View.vue'),
   },
 
   {
@@ -36,7 +36,7 @@ const routes = [
     meta: {
       title: 'Login',
     },
-    path: '/Login',
+    path: '/',
     name: 'login',
     component: () => import('@/views/LoginView.vue'),
   },
@@ -109,7 +109,7 @@ router.beforeEach((to) => {
   // if (to.name != "login") {
   //   console.log("connecge------------------", mainStore.id, to.name);
   //   if (mainStore.id == null) {
-  //     router.push("/Login");
+  //     router.push("/");
   //   }
   // }
   // if (to.name == "login") {

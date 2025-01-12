@@ -30,7 +30,7 @@ const logoutItem = computed(() => ({
 
 const disconnect = () => {
   mainStore.clear();
-  router.push('/Login');
+  router.push('/');
 };
 const menuClick = (event, item) => {
   emit('menu-click', event, item);
