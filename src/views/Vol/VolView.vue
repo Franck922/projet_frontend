@@ -65,13 +65,13 @@ const pagesList = computed(() => {
 });
 
 onMounted(async () => {
-  await getProjetList();
+  await getVolList();
 });
 const loadingUpdate = ref(false);
 
-async function getProjetList() {
+async function getVolList() {
   reloading.value = true;
-  const response = await request.getListProjet();
+  const response = await request.getListVol();
   if (response.status) {
     reloading.value = false;
     loading.value = false;
@@ -83,16 +83,16 @@ async function getProjetList() {
   }
 }
 
-const newProjet = async () => {
+const newVol = async () => {
   loadingUpdate.value = true;
   let data = {
     titre: titre.value,
     description: description.value,
     webhook: webhook.value,
   };
-  const response = await request.newProjet(data);
+  const response = await request.newVol(data);
   if (response.status) {
-    await getProjetList();
+    await getVolList();
     toast.success("Succes !", {
       autoClose: 2000,
     });
@@ -109,12 +109,12 @@ const newProjet = async () => {
   }
 };
 
-const regeneateProjetKey = async (MissionsecretKey) => {
+const regeneateVolKey = async (MissionsecretKey) => {
   loadingUpdate.value = true;
 
-  const response = await request.keyRefreshProjet(MissionsecretKey);
+  const response = await request.keyRefreshVol(MissionsecretKey);
   if (response.status) {
-    await getProjetList();
+    await getVolList();
     toast.success("Succes !", {
       autoClose: 2000,
     });
@@ -128,16 +128,16 @@ const regeneateProjetKey = async (MissionsecretKey) => {
 };
 
 let MissionsecretKey = ref("");
-const seeInfoprojet = async (projet) => {
-  titre.value = projet.titre;
-  webhook.value = projet.webhook;
-  MissionsecretKey.value = projet.MissionsecretKey;
+const seeInfoVol = async (Vol) => {
+  titre.value = Vol.titre;
+  webhook.value = Vol.webhook;
+  MissionsecretKey.value = Vol.MissionsecretKey;
 
   description.value = "";
   isModalUpdate.value = true;
 };
 
-const updaeProjet = async () => {
+const updaeVol = async () => {
   loadingUpdate.value = true;
   let data = {
     titre: titre.value,
@@ -145,9 +145,9 @@ const updaeProjet = async () => {
     webhook: webhook.value,
     MissionsecretKey: MissionsecretKey.value,
   };
-  const response = await request.updateProjet(data);
+  const response = await request.updateVol(data);
   if (response.status) {
-    await getProjetList();
+    await getVolList();
     toast.success("Succes !", {
       autoClose: 2000,
     });
@@ -169,12 +169,12 @@ const updaeProjet = async () => {
   }
 };
 
-const stateProjet = async () => {
+const stateVol = async () => {
   loadingUpdate.value = true;
 
-  const response = await request.changestatusProjet(MissionsecretKey.value);
+  const response = await request.changestatusVol(MissionsecretKey.value);
   if (response.status) {
-    await getProjetList();
+    await getVolList();
     toast.success("Succes !", {
       autoClose: 2000,
     });
@@ -197,7 +197,7 @@ const stateProjet = async () => {
 </script>
 
 <template>
-  <CardBoxModal v-model="isModalActive" title="Nouveau Projet">
+  <CardBoxModal v-model="isModalActive" title="Nouveau Vol">
     <div class="mb-2 max-h-96 overflow-y-auto">
       <CardBox form @submit.prevent="submit">
         <FormField label="Titre" help="Do not enter the leading zero">
@@ -217,7 +217,7 @@ const stateProjet = async () => {
           label="Creer"
           color="info"
           small
-          @click="newProjet"
+          @click="newVol"
         />
       </CardBox>
     </div>
@@ -243,7 +243,7 @@ const stateProjet = async () => {
           label="Mettre a jour"
           color="info"
           small
-          @click="updaeProjet"
+          @click="updaeVol"
         />
         <BaseButton
           target="_blank"
@@ -253,7 +253,7 @@ const stateProjet = async () => {
           label="Changer le status"
           color="info"
           small
-          @click="stateProjet"
+          @click="stateVol"
         />
       </CardBox>
     </div>
@@ -261,7 +261,7 @@ const stateProjet = async () => {
 
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton :icon="mdiTableBorder" title="Projet" main>
+      <SectionTitleLineWithButton :icon="mdiTableBorder" title="Vol" main>
         <BaseButton
           :loading="reloading"
           target="_blank"
@@ -283,7 +283,7 @@ const stateProjet = async () => {
               <th>Solde</th>
               <th>webhook</th>
               <th>Status</th>
-              <th>Projet Secret Key</th>
+              <th>Vol Secret Key</th>
 
               <th>Date de Creation</th>
               <th>Action</th>
@@ -315,14 +315,14 @@ const stateProjet = async () => {
                     color="info"
                     :icon="mdiReload"
                     small
-                    @click="regeneateProjetKey(data.MissionsecretKey)"
+                    @click="regeneateVolKey(data.MissionsecretKey)"
                   />
                   <BaseButton
                     class="mx-1"
                     color="danger"
                     :icon="mdiInformationVariantCircle"
                     small
-                    @click="seeInfoprojet(data)"
+                    @click="seeInfoVol(data)"
                   />
                 </BaseButtons>
               </td>
