@@ -140,7 +140,7 @@ const close = () => {
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiTableBorder"
-        title="Gestion des utilisateurs"
+        title="Reservation"
         main
       >
       </SectionTitleLineWithButton>

@@ -51,38 +51,40 @@ const routes = [
 
   {
     meta: {
-      title: 'Vols',
+      title: 'Gestion des Vols',
     },
     path: '/Vols',
-    name: 'Vols',
+    name: 'Gestion des Vols',
     component: () => import('@/views/Vols/DashBoardVolView.vue'),
   },
 
   {
     meta: {
-      title: 'Utilisateurs',
+      title: 'Gestion des Utilisateurs',
     },
     path: '/Utilisateurs',
-    name: 'Utilisateurs',
+    name: 'Gestion des Utilisateurs',
     component: () =>
       import('@/views/Utilisateurs/DashBoardUtilisateurView.vue'),
   },
   {
     meta: {
-      title: 'Poste',
+      title: 'Nouvelle Reservations',
     },
-    path: '/Poste',
-    name: 'Poste',
-    component: () => import('@/views/Employe/PosteView.vue'),
+    path: '/New-Reservation',
+    name: 'Nouvelle Reservations',
+    component: () => import('@/views/Reservation/ReservationUserView.vue'),
   },
+
   {
     meta: {
-      title: 'Sanction',
+      title: 'Gestion des Reservations',
     },
-    path: '/Sanction',
-    name: 'Sanction',
-    component: () => import('@/views/Employe/SanctionView.vue'),
+    path: '/Reservations',
+    name: 'Gestion des Reservations',
+    component: () => import('@/views/Reservation/DashboardReservationView.vue'),
   },
+
   {
     meta: {
       title: 'Error',

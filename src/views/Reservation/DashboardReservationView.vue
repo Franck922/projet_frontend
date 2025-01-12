@@ -32,35 +32,34 @@ import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
-const isModalActiveNewSanction = ref(false);
-const isModalSanction = ref(false);
+const isModalActiveNewPoste = ref(false);
+const isModalPoste = ref(false);
 const isModalCreateCB = ref(false);
 const perPage = ref(5);
 const perPageFilter = ref(5);
 const currentPage = ref(0);
 const currentPageFilter = ref(0);
 let listEmploye = ref([]);
-let listSanctionEmploye = ref([]);
-let listSanctionEmployeFilter = ref([]);
-let listMois = ref([]);
-let listSanction = ref([]);
+let listPosteEmploye = ref([]);
+let listPosteEmployeFilter = ref([]);
+let listPoste = ref([]);
+let listTypePoste = ref([]);
+let typePoste = ref([]);
 let loading = ref(true);
 let loadingAction = ref(false);
 let employe = ref('');
-let sanction = ref('');
-let titresanction = ref('');
-let montantsanction = ref(0);
-let mois = ref();
+let poste = ref('');
+let titreposte = ref('');
 
 const itemsPaginatedFilter = computed(() =>
-  listSanctionEmployeFilter.value.slice(
+  listPosteEmployeFilter.value.slice(
     perPageFilter.value * currentPageFilter.value,
     perPageFilter.value * (currentPageFilter.value + 1)
   )
 );
 
 const numPagesFilter = computed(() =>
-  Math.ceil(listSanctionEmploye.value.length / perPageFilter.value)
+  Math.ceil(listPosteEmploye.value.length / perPageFilter.value)
 );
 
 const currentPageHumanFilter = computed(() => currentPageFilter.value + 1);
@@ -91,22 +90,35 @@ async function getlistEmploye() {
     loading.value = false;
   }
 }
-async function getSanctionEmploye() {
-  const response = await request.listSanctionEmploye();
+async function getPosteEmploye() {
+  const response = await request.listPosteEmploye();
   if (response.status) {
     // loading.value = false;
-    listSanctionEmploye.value = response.data;
+    listPosteEmploye.value = response.data;
   } else {
     // loading.value = false;
   }
 }
-async function getlistSanction() {
-  const response = await request.listSanction();
+async function getlistPoste() {
+  const response = await request.listPoste();
   if (response.status) {
     // loading.value = false;
 
     response.data.forEach((element) => {
-      listSanction.value.push({
+      listPoste.value.push({
+        id: element.id,
+        label: element.libelle,
+      });
+    });
+  } else {
+    // loading.value = false;
+  }
+}
+async function getlistTypePoste() {
+  const response = await request.listTypePoste();
+  if (response.status) {
+    response.data.forEach((element) => {
+      listTypePoste.value.push({
         id: element.id,
         label: element.libelle,
       });
@@ -116,14 +128,14 @@ async function getlistSanction() {
   }
 }
 const itemsPaginated = computed(() =>
-  listSanctionEmploye.value.slice(
+  listPosteEmploye.value.slice(
     perPage.value * currentPage.value,
     perPage.value * (currentPage.value + 1)
   )
 );
 
 const numPages = computed(() =>
-  Math.ceil(listSanctionEmploye.value.length / perPage.value)
+  Math.ceil(listPosteEmploye.value.length / perPage.value)
 );
 
 const currentPageHuman = computed(() => currentPage.value + 1);
@@ -141,10 +153,10 @@ const router = useRouter();
 
 onMounted(async () => {
   connected();
-  await getlistMois();
-  await getlistSanction();
+  await getlistTypePoste();
+  await getlistPoste();
   await getlistEmploye();
-  await getSanctionEmploye();
+  await getPosteEmploye();
 });
 
 const connected = () => {
@@ -170,39 +182,23 @@ function setAction(user) {
 
 function setAction1(user) {
   _seletUser.value = user;
-  isModalSanction.value = true;
+  isModalPoste.value = true;
   console.log(_seletUser.value);
 }
 
-async function getlistMois() {
-  const response = await request.listMois();
-  if (response.status) {
-    response.data.forEach((element) => {
-      listMois.value.push({
-        id: element.id,
-        label: element.libelle,
-      });
-    });
-    const now = new Date();
-    const currentMonth = now.getMonth() + 1;
-    mois.value = listMois.value.find((mois) => mois.id === currentMonth);
-  } else {
-  }
-}
-const giveSanction = async () => {
+const affectToPoste = async () => {
   loadingAction.value = true;
   let data = {
-    sanction: '/api/sanctions/' + sanction.value.id,
-
+    poste: '/api/postes/' + poste.value.id,
+    typePoste: '/api/type_postes/' + typePoste.value.id,
     employe: '/api/employes/' + employe.value.id,
-    mois: '/api/mois/' + mois.value.id,
   };
-  const response = await request.giveSanction(data);
+  const response = await request.affectToPoste(data);
   if (response.status) {
     toast.success('Succes !', {
       autoClose: 2000,
     });
-    await getSanctionEmploye();
+    await getPosteEmploye();
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
@@ -212,18 +208,17 @@ const giveSanction = async () => {
     loadingAction.value = false;
   }
 };
-const newSanction = async () => {
+const newPoste = async () => {
   loadingAction.value = true;
   let data = {
-    libelle: titresanction.value,
-    montant: parseInt(montantsanction.value),
+    libelle: titreposte.value,
   };
-  const response = await request.newSanction(data);
+  const response = await request.newPoste(data);
   if (response.status) {
     toast.success('Succes !', {
       autoClose: 2000,
     });
-    await getlistSanction();
+    await getlistPoste();
     loadingAction.value = false;
     isModalActive.value = false;
   } else {
@@ -233,13 +228,13 @@ const newSanction = async () => {
     loadingAction.value = false;
   }
 };
-const SanctionEmployeFilter = async () => {
-  listSanctionEmployeFilter.value = [];
+const PosteEmployeFilter = async () => {
+  listPosteEmployeFilter.value = [];
   loadingAction.value = true;
 
-  const response = await request.listSanctionEmployeFilter(employe.value.id);
+  const response = await request.listPosteEmployeFilter(employe.value.id);
   if (response.status) {
-    listSanctionEmployeFilter.value = response.data;
+    listPosteEmployeFilter.value = response.data;
 
     loadingAction.value = false;
     isModalActive.value = false;
@@ -253,61 +248,55 @@ const SanctionEmployeFilter = async () => {
 </script>
 
 <template>
-  <CardBoxModal
-    v-model="isModalActiveNewSanction"
-    title="Creer une nouvelle sanction"
-  >
+  <CardBoxModal v-model="isModalActiveNewPoste" title="Creer un nouveau poste">
     <p>
       Vous allez
-      <b>creer un nouveau sanction</b>
+      <b>creer un nouveau poste</b>
     </p>
 
-    <FormField label="Titre de la sanction ">
-      <FormControl v-model="titresanction" :icon="mdiAccount" />
-    </FormField>
-    <FormField label="Montant de la sanction ">
-      <FormControl v-model="montantsanction" :icon="mdiAccount" />
+    <FormField label="Titre du poste ">
+      <FormControl v-model="titreposte" :icon="mdiAccount" />
     </FormField>
 
     <BaseButton
       target="_blank"
       :loading="loadingAction"
       :icon="mdiCogOutline"
-      label="Creer"
+      label="Enregistrer"
       color="bg-blue-400"
       small
-      @click="newSanction"
+      @click="newPoste"
     />
   </CardBoxModal>
-  <CardBoxModal v-model="isModalActive" title="Sanctioner un employe">
+  <CardBoxModal v-model="isModalActive" title="Poster un employe">
     <p>
       Vous allez
-      <b>Modifier le sanction journalier d'un employe</b>
+      <b>Modifier le poste journalier d'un employe</b>
     </p>
     <FormField label="Selectionner un employe ">
       <FormControl v-model="employe" :options="listEmploye" />
     </FormField>
-    <FormField label="Selectionner le sanction ">
-      <FormControl v-model="sanction" :options="listSanction" />
+    <FormField label="Selectionner le poste ">
+      <FormControl v-model="poste" :options="listPoste" />
+    </FormField>
+    <FormField label="Selectionner le type poste ">
+      <FormControl v-model="typePoste" :options="listTypePoste" />
     </FormField>
 
     <BaseButton
       target="_blank"
       :loading="loadingAction"
       :icon="mdiCogOutline"
-      label="Sanctionner"
+      label="Enregistrer"
       color="bg-blue-400"
       small
-      @click="giveSanction"
+      @click="affectToPoste"
     />
   </CardBoxModal>
-  <CardBoxModal
-    v-model="isModalSanction"
-    title="Chercher les sanctions d'un employe"
-  >
+  <CardBoxModal v-model="isModalPoste" title="Gestion des reservations">
     <p>
       Selectionner l'employe
-      <b>dont vous voulez l'historique de sanctions</b>
+      <b>dont vous voulez l'historique de postes</b>
     </p>
     <FormField label="Selectionner un employe ">
       <FormControl v-model="employe" :options="listEmploye" />
@@ -320,7 +309,7 @@ const SanctionEmployeFilter = async () => {
       label="Filtrer"
       color="bg-blue-400"
       small
-      @click="SanctionEmployeFilter"
+      @click="PosteEmployeFilter"
     />
 
     <Loader v-if="loadingAction" />
@@ -332,58 +321,51 @@ const SanctionEmployeFilter = async () => {
 
             <th>Phone</th>
 
-            <th>Sanction</th>
-            <th>Montant de la Sanction</th>
-            <th>Mois de la Sanction</th>
-            <th>Date de sanction</th>
-            <!-- <th>Action</th> -->
+            <th>Poste</th>
+            <th>Type de Poste</th>
+            <th>Date mise en poste</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="sanctionUser in itemsPaginatedFilter"
-            :key="sanctionUser.id"
-          >
+          <tr v-for="posteUser in itemsPaginatedFilter" :key="posteUser.id">
             <td data-label="nom">
-              {{ sanctionUser.employe.nom }}
+              {{ posteUser.employe.nom }}
             </td>
 
             <td data-label="phone">
-              {{ sanctionUser.employe.phone }}
+              {{ posteUser.employe.phone }}
             </td>
 
-            <td data-label="sanction">
-              {{ sanctionUser.sanction.libelle }}
+            <td data-label="poste">
+              {{ posteUser.poste.libelle }}
             </td>
-            <td data-label="montant">
-              {{ sanctionUser.sanction.montant }}
-            </td>
-            <td data-label="mois">
-              {{ sanctionUser.mois.libelle }}
+            <td data-label="typePoste">
+              {{ posteUser.typePoste.libelle }}
             </td>
 
-            <td data-label="date_sanction">
-              {{ sanctionUser.dateCreated.split('T')[0] }} a
-              {{ sanctionUser.dateCreated.split('T')[1] }}
+            <td data-label="date_poste">
+              {{ posteUser.dateCreated.split('T')[0] }} a
+              {{ posteUser.dateCreated.split('T')[1] }}
             </td>
-            <!-- 
+
             <td class="before:hidden lg:w-1 whitespace-nowrap">
               <BaseButtons type="justify-start lg:justify-end" no-wrap>
                 <BaseButton
                   color="warning"
                   :icon="mdiGamepadCircle"
                   small
-                  @click="setAction(sanctionUser)"
+                  @click="setAction(posteUser)"
                 />
 
                 <BaseButton
                   color="info"
                   :icon="mdiEye"
                   small
-                  @click="setAction1(sanctionUser)"
+                  @click="setAction1(posteUser)"
                 />
               </BaseButtons>
-            </td> -->
+            </td>
           </tr>
         </tbody>
       </table>
@@ -410,33 +392,19 @@ const SanctionEmployeFilter = async () => {
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiAccountSwitch"
-        title="Sanctions"
+        title="Gestion des reservations"
         main
       >
+       
         <BaseButton
           target="_blank"
-          label="Voir historique de sanction d'un employe"
+          label="Nouvelle reservation"
           color="contrast"
           rounded-full
           small
-          @click="isModalSanction = true"
+          @click="isModalActiveNewPoste = true"
         />
-        <BaseButton
-          target="_blank"
-          label="Nouvelle sanction"
-          color="contrast"
-          rounded-full
-          small
-          @click="isModalActiveNewSanction = true"
-        />
-        <BaseButton
-          target="_blank"
-          label="Sanctioner Un employe"
-          color="contrast"
-          rounded-full
-          small
-          @click="isModalActive = true"
-        />
+       
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
@@ -448,54 +416,51 @@ const SanctionEmployeFilter = async () => {
 
               <th>Phone</th>
 
-              <th>Sanction</th>
-              <th>Montant de la Sanction</th>
-              <th>Mois de la Sanction</th>
-              <th>Date de sanction</th>
-              <!-- <th>Action</th> -->
+              <th>Poste</th>
+              <th>Type de Poste</th>
+              <th>Date mise en poste</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="sanctionUser in itemsPaginated" :key="sanctionUser.id">
+            <tr v-for="posteUser in itemsPaginated" :key="posteUser.id">
               <td data-label="nom">
-                {{ sanctionUser.employe.nom }}
+                {{ posteUser.employe.nom }}
               </td>
 
               <td data-label="phone">
-                {{ sanctionUser.employe.phone }}
+                {{ posteUser.employe.phone }}
               </td>
 
-              <td data-label="sanction">
-                {{ sanctionUser.sanction.libelle }}
+              <td data-label="poste">
+                {{ posteUser.poste.libelle }}
               </td>
-              <td data-label="montant">
-                {{ sanctionUser.sanction.montant }}
-              </td>
-              <td data-label="mois">
-                {{ sanctionUser.mois.libelle }}
+              <td data-label="typePoste">
+                {{ posteUser.typePoste.libelle }}
               </td>
 
-              <td data-label="date_sanction">
-                {{ sanctionUser.dateCreated.split('T')[0] }} a
-                {{ sanctionUser.dateCreated.split('T')[1] }}
+              <td data-label="date_poste">
+                {{ posteUser.dateCreated.split('T')[0] }} a
+                {{ posteUser.dateCreated.split('T')[1] }}
               </td>
-              <!-- <td class="before:hidden lg:w-1 whitespace-nowrap">
+
+              <td class="before:hidden lg:w-1 whitespace-nowrap">
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
                     color="warning"
                     :icon="mdiGamepadCircle"
                     small
-                    @click="setAction(sanctionUser)"
+                    @click="setAction(posteUser)"
                   />
 
                   <BaseButton
                     color="info"
                     :icon="mdiEye"
                     small
-                    @click="setAction1(sanctionUser)"
+                    @click="setAction1(posteUser)"
                   />
                 </BaseButtons>
-              </td> -->
+              </td>
             </tr>
           </tbody>
         </table>

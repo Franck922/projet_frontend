@@ -37,4 +37,15 @@ export default [
     label: 'Utilisateurs',
     icon: mdiAccountSwitch,
   },
+
+  {
+    to: '/New-Reservation',
+    label: 'Reservation',
+    icon: mdiAccountSwitch,
+  },
+  {
+    to: '/Parametre',
+    label: 'Parametre',
+    icon: mdiAccountSwitch,
+  },
 ];
