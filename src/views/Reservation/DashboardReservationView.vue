@@ -395,7 +395,6 @@ const PosteEmployeFilter = async () => {
         title="Gestion des reservations"
         main
       >
-       
         <BaseButton
           target="_blank"
           label="Nouvelle reservation"
@@ -404,7 +403,6 @@ const PosteEmployeFilter = async () => {
           small
           @click="isModalActiveNewPoste = true"
         />
-       
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
