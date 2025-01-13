@@ -1,12 +1,12 @@
 # [Admin One &mdash; Free Vue 3.x Tailwind 3.x Admin Dashboard with dark mode](https://justboil.me/tailwind-admin-templates/free-vue-dashboard/)
 
-[![version](https://img.shields.io/github/v/release/justboil/Horizon-admin)](https://justboil.me/tailwind-admin-templates/free-vue-dashboard/) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://justboil.me/tailwind-admin-templates/free-vue-dashboard/)
+[![version](https://img.shields.io/github/v/release/justboil/Gestion Voyage-admin)](https://justboil.me/tailwind-admin-templates/free-vue-dashboard/) [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://justboil.me/tailwind-admin-templates/free-vue-dashboard/)
 
 ### Tailwind 3.x Vue 3.x with Vite or Nuxt or Laravel
 
-[![Free Vue 3 Tailwind 3 admin dashboard with dark mode](https://static.justboil.me/templates/one/repo-tailwind-vue.png)](https://justboil.github.io/Horizon-admin/)
+[![Free Vue 3 Tailwind 3 admin dashboard with dark mode](https://static.justboil.me/templates/one/repo-tailwind-vue.png)](https://justboil.github.io/Gestion Voyage-admin/)
 
-[![Vue Tailwind white & dark styles](https://static.justboil.me/templates/one/repo-styles.png)](https://justboil.github.io/Horizon-admin/)
+[![Vue Tailwind white & dark styles](https://static.justboil.me/templates/one/repo-styles.png)](https://justboil.github.io/Gestion Voyage-admin/)
 
 ### Tailwind 3.x Vue 3.x with Vite or Nuxt or Laravel
 
@@ -60,27 +60,27 @@ Looking for **Tailwind React TypeScript**? Check [Admin One - React TypeScript T
 
 Mobile layout with hidden aside menu and collapsable cards & tables
 
-[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-mobile.png)](https://justboil.github.io/Horizon-admin/)
+[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-mobile.png)](https://justboil.github.io/Gestion Voyage-admin/)
 
 ### Small laptops 1024px
 
 Small laptop layout with show/hide aside menu option
 
-[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024.png)](https://justboil.github.io/Horizon-admin/)
+[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024.png)](https://justboil.github.io/Gestion Voyage-admin/)
 
-[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024-menu-open.png)](https://justboil.github.io/Horizon-admin/)
+[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-1024-menu-open.png)](https://justboil.github.io/Gestion Voyage-admin/)
 
 ### Laptops & desktops
 
 Classic layout with aside menus on the left
 
-[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-widescreen.png)](https://justboil.github.io/Horizon-admin/)
+[![Free Vue 3 Tailwind CSS 3 admin dashboard](https://static.justboil.me/templates/one/one-tailwind-vue-widescreen.png)](https://justboil.github.io/Gestion Voyage-admin/)
 
 ## Demo
 
 ### Free Dashboard Demo
 
-https://justboil.github.io/Horizon-admin/
+https://justboil.github.io/Gestion Voyage-admin/
 
 ### Premium Dashboard Demo
 
@@ -100,9 +100,9 @@ Get code & install. Then `dev` or `build` with [Vite](#vite-builds) or integrate
 
 #### Get the repo
 
-- [Create new repo](https://github.com/justboil/Horizon-admin/generate) with this template
+- [Create new repo](https://github.com/justboil/Gestion Voyage-admin/generate) with this template
 - &hellip; or clone this repo on GitHub
-- &hellip; or [download .zip](https://github.com/justboil/Horizon-admin/archive/master.zip) from GitHub
+- &hellip; or [download .zip](https://github.com/justboil/Gestion Voyage-admin/archive/master.zip) from GitHub
 
 #### Install
 
@@ -140,11 +140,11 @@ npm run lint
 
 ### Nuxt 3.x integration
 
-This dashboard can be integrated with Nuxt 3.x. [Check guide](https://github.com/justboil/Horizon-admin/tree/master/.nuxt-guide) for more information
+This dashboard can be integrated with Nuxt 3.x. [Check guide](https://github.com/justboil/Gestion Voyage-admin/tree/master/.nuxt-guide) for more information
 
 ### Laravel 9.x integration
 
-This dashboard can be integrated with Laravel 9.x Breeze Inertia + Vue.js stack. [Check guide](https://github.com/justboil/Horizon-admin/tree/master/.laravel-guide) for more information
+This dashboard can be integrated with Laravel 9.x Breeze Inertia + Vue.js stack. [Check guide](https://github.com/justboil/Gestion Voyage-admin/tree/master/.laravel-guide) for more information
 
 ## Docs
 
@@ -179,11 +179,11 @@ The issue list is reserved exclusively for bug reports and feature requests. Tha
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Vue.js 3](https://v3.vuejs.org/)
 - [Vite](https://vitejs.dev)
-  "# horizon_dashboard" git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/horizon_dashboard.git git push -u origin main
-  "# horizon_dashboard" git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/horizon_dashboard.git git push -u origin main
-  "# horizon_dashboard" git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/horizon_dashboard.git git push -u origin main
-  "# horizon_dashboard"
-  "# horizon_dashboard"
+  "# Gestion Voyage_dashboard" git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/Gestion Voyage_dashboard.git git push -u origin main
+  "# Gestion Voyage_dashboard" git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/Gestion Voyage_dashboard.git git push -u origin main
+  "# Gestion Voyage_dashboard" git init git add README.md git commit -m "first commit" git branch -M main git remote add origin https://github.com/MOUAFORandoll/Gestion Voyage_dashboard.git git push -u origin main
+  "# Gestion Voyage_dashboard"
+  "# Gestion Voyage_dashboard"
   <<<<<<< HEAD
   =======
   "# projet_frontend"

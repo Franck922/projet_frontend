@@ -1,6 +1,6 @@
 # Free Nuxt 3.x Vue 3.x Tailwind 3.x Dashboard
 
-This guide will help you integrate your Nuxt.js 3.x application with [Admin One - free Vue 3 Tailwind 3 Admin Dashboard with dark mode](https://github.com/justboil/Horizon-admin).
+This guide will help you integrate your Nuxt.js 3.x application with [Admin One - free Vue 3 Tailwind 3 Admin Dashboard with dark mode](https://github.com/justboil/Gestion Voyage-admin).
 
 **Please note:** this document is work in progress and Nuxt 3 is in Release Candidate state, so some things can be missing and warnings may occur.
 
@@ -31,9 +31,9 @@ npm install --legacy-peer-deps pinia @pinia/nuxt
 
 ### Copy styles, components and scripts
 
-Now clone [justboil/Horizon-admin](https://github.com/justboil/Horizon-admin) project somewhere locally (into any separate folder)
+Now clone [justboil/Gestion Voyage-admin](https://github.com/justboil/Gestion Voyage-admin) project somewhere locally (into any separate folder)
 
-Next, copy these files **from justboil/Horizon-admin project** directory **to nuxt project** directory:
+Next, copy these files **from justboil/Gestion Voyage-admin project** directory **to nuxt project** directory:
 
 - Copy `tailwind.config.js` to `/`
 - Copy `src/components` to `components/`

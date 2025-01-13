@@ -57,7 +57,7 @@ const getCommandeproduits = async () => {
 <template>
   <div class="bg-gray-100 p-8 rounded-lg px-auto max-w-10xl">
     <h1 class="text-3xl font-bold border-b-2 border-gray-300 pb-2 mb-6">
-      Politique de Confidentialité de l'Application Camerounaise Horizon
+      Politique de Confidentialité de l'Application Camerounaise Gestion Voyage
     </h1>
 
     <section class="mb-8">
