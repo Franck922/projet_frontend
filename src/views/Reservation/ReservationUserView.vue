@@ -1,66 +1,87 @@
 <script setup>
 import {
-  mdiHomeGroup,
-  mdiArrowDownBoldHexagonOutline,
-  mdiTableBorder,
-  mdiStateMachine,
-  mdiGamepadCircle,
+  mdiAccountSwitch,
+  mdiAsterisk,
   mdiCogOutline,
+  mdiAccount,
+  mdiContentCopy,
   mdiLock,
-  mdiReload,
-  mdiTrashCan,
-  mdiPlusBox,
-  mdiInformationVariantCircle,
+  mdiEye,
+  mdiAccountAlertOutline,
+  mdiGamepadCircle,
 } from '@mdi/js';
 import SectionMain from '@/components/SectionMain.vue';
 import CardBox from '@/components/CardBox.vue';
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
 import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
-
-import FormField from '@/components/FormField.vue';
 import FormControl from '@/components/FormControl.vue';
+
 import CardBoxModal from '@/components/CardBoxModal.vue';
 import BaseLevel from '@/components/BaseLevel.vue';
+import BaseButtons from '@/components/BaseButtons.vue';
 import BaseButton from '@/components/BaseButton.vue';
-// import UserAvatar from "@/components/UserAvatar.vue";
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import { useRouter } from 'vue-router';
+
+import { useMainStore } from '@/stores/main';
 import { onMounted, computed, ref } from 'vue';
 import { RequestApi } from '@/boot/RequestApi';
+
+import FormField from '@/components/FormField.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 let request = new RequestApi();
 
 const isModalActive = ref(false);
-const isModalUpdate = ref(false);
-
-const isModalDangerActive = ref(false);
-
+const isModalActiveNewPoste = ref(false);
+const isModalPoste = ref(false);
+const isModalCreateCB = ref(false);
 const perPage = ref(5);
-
-const listVille = [
-  { label: 'Business development' },
-  { label: 'Marketing' },
-  { label: 'Sales' },
-];
+const perPageFilter = ref(5);
 const currentPage = ref(0);
+const currentPageFilter = ref(0);
+let listEmploye = ref([]);
+let listReservation = ref([]);
+let listPlace = ref([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+let listVol = ref([]);
+let typePoste = ref([]);
 let loading = ref(true);
-let reloading = ref(false);
-let flight_number = ref('');
-let departure_city = ref('');
-let arrival_city = ref('');
-let departure_time = ref('');
-let arrival_time = ref('');
-let price = ref(0);
-let seats_available = ref(0);
-let Datas = ref([]);
+let loadingAction = ref(false);
+let place = ref('');
+let vol = ref('');
+const mainStore = useMainStore();
 
+async function getVolList() {
+  const response = await request.getListVol();
+  if (response.status) {
+    response.data.forEach((element) => {
+      listVol.value.push({
+        id: element.id,
+        label: ' Vol numero : ' + element.flight_number,
+        description:
+          'Départ:  ' +
+          element.departure_city +
+          ' à ' +
+          element.departure_time +
+          ' Arrivée : ' +
+          element.arrival_city +
+          ' à ' +
+          element.arrival_time,
+      });
+    });
+  } else {
+    // loading.value = false;
+  }
+}
 const itemsPaginated = computed(() =>
-  Datas.value.slice(
+  listReservation.value.slice(
     perPage.value * currentPage.value,
     perPage.value * (currentPage.value + 1)
   )
 );
 
-const numPages = computed(() => Math.ceil(Datas.value.length / perPage.value));
+const numPages = computed(() =>
+  Math.ceil(listReservation.value.length / perPage.value)
+);
 
 const currentPageHuman = computed(() => currentPage.value + 1);
 
@@ -70,79 +91,97 @@ const pagesList = computed(() => {
   for (let i = 0; i < numPages.value; i++) {
     pagesList.push(i);
   }
-
+  console.log(pagesList);
   return pagesList;
 });
+const router = useRouter();
 
 onMounted(async () => {
-  await getUserList();
+  await getVolList();
+  await getListReservations();
 });
-const loadingUpdate = ref(false);
 
-async function getUserList() {
-  reloading.value = true;
-  const response = await request.getListUser();
-  if (response.status) {
-    reloading.value = false;
-    loading.value = false;
-    Datas.value = response.data;
-  } else {
-    reloading.value = false;
-
-    loading.value = false;
-  }
-}
-const formatDate = (date, time) => {
-  const [hours, minutes] = time.split(':'); // Sépare les heures et minutes
-  const newDate = new Date(date); // Crée un objet Date à partir de la date
-  newDate.setHours(hours, minutes); // Définit les heures et minutes
-  const year = newDate.getFullYear();
-  const month = String(newDate.getMonth() + 1).padStart(2, '0'); // Mois : 01-12
-  const day = String(newDate.getDate()).padStart(2, '0'); // Jour : 01-31
-  const formattedTime = `${String(hours).padStart(2, '0')}:${String(
-    minutes
-  ).padStart(2, '0')}`; // Heure : HH:mm
-  return `${year}/${month}/${day} ${formattedTime}`;
-};
-
-let idUser = ref(0);
-const changeStatus = async (dataUser) => {
-  loadingUpdate.value = true;
-
+const newReservation = async () => {
+  loadingAction.value = true;
   let data = {
-    usertype: dataUser.usertype == 'admin' ? 'user' : 'admin',
+    user_id: mainStore.id,
+    flight_id: vol.value.id,
+    seats: place.value,
   };
-  const response = await request.updateUser(dataUser.id, data);
+  const response = await request.newReservation(data);
   if (response.status) {
-    await getUserList();
     toast.success('Succes !', {
       autoClose: 2000,
     });
-    isModalUpdate.value = false;
-
-    loadingUpdate.value = false;
+    await getListReservations();
+    loadingAction.value = false;
+    isModalActive.value = false;
   } else {
     toast.error('Une erreur est survenue !', {
       autoClose: 2000,
     });
-
-    loadingUpdate.value = false;
+    loadingAction.value = false;
   }
 };
+const getListReservations = async () => {
+  listReservation.value = [];
+  loading.value = true;
 
-const close = () => {
-  loadingUpdate.value = false;
+  const response = await request.getListReservations(mainStore.id);
+  if (response.status) {
+    listReservation.value = response.data;
+
+    loading.value = false;
+    isModalActive.value = false;
+  } else {
+    toast.error('Une erreur est survenue !', {
+      autoClose: 2000,
+    });
+    loading.value = false;
+  }
 };
 </script>
 
 <template>
+  <CardBoxModal v-model="isModalActiveNewPoste" title="Reserver une place">
+    <p>
+      Vous allez
+      <b>reserver un vol</b>
+    </p>
+    {{ vol.description }}
+    <FormField label="Selectionner le vol ">
+      <FormControl v-model="vol" :options="listVol" />
+    </FormField>
+    <FormField label="Selectionner une place ">
+      <FormControl v-model="place" :options="listPlace" />
+    </FormField>
+
+    <BaseButton
+      target="_blank"
+      :loading="loadingAction"
+      :icon="mdiCogOutline"
+      label="Enregistrer"
+      color="bg-blue-400"
+      small
+      @click="newReservation"
+    />
+  </CardBoxModal>
+
   <LayoutAuthenticated>
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiTableBorder"
-        title="Reservation"
+        :icon="mdiAccountSwitch"
+        title="Gestion des reservations"
         main
       >
+        <BaseButton
+          target="_blank"
+          label="Nouvelle reservation"
+          color="contrast"
+          rounded-full
+          small
+          @click="isModalActiveNewPoste = true"
+        />
       </SectionTitleLineWithButton>
 
       <Loader v-if="loading" />
@@ -150,40 +189,51 @@ const close = () => {
         <table>
           <thead>
             <tr>
-              <th>Nom d'utilisateur</th>
-              <th>Adrese mail l'utilisateur</th>
-              <th>Role de l'utilisateur</th>
+              <th>Nom</th>
 
+              <th>email</th>
+
+              <th>Numero de vol</th>
+              <th>seats</th>
+              <th>prix</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="data in itemsPaginated" :key="data.id">
-              <td data-label="name">
-                {{ data.name }}
-              </td>
-              <td data-label="email">
-                {{ data.email }}
+            <tr v-for="posteUser in itemsPaginated" :key="posteUser.id">
+              <td data-label="nom">
+                {{ posteUser.user.name }}
               </td>
 
-              <td data-label="usertype">
-                {{ data.usertype }}
+              <td data-label="email">
+                {{ posteUser.user.email }}
+              </td>
+
+              <td data-label="flight_number">
+                {{ posteUser.flight.flight_number }}
+              </td>
+              <td data-label="seats">
+                {{ posteUser.seats }}
+              </td>
+
+              <td data-label="total_price">
+                {{ posteUser.total_price }}
               </td>
 
               <td class="before:hidden lg:w-1 whitespace-nowrap">
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
-                    class="mx-1"
-                    :loading="loadingUpdate"
-                    color="info"
-                    :icon="mdiStateMachine"
-                    :label="
-                      data.usertype === 'admin'
-                        ? 'Retirer' + ' admin'
-                        : 'Nommer' + ' admin'
-                    "
+                    color="warning"
+                    :icon="mdiGamepadCircle"
                     small
-                    @click="changeStatus(data)"
+                    @click="setAction(posteUser)"
+                  />
+
+                  <BaseButton
+                    color="info"
+                    :icon="mdiEye"
+                    small
+                    @click="setAction1(posteUser)"
                   />
                 </BaseButtons>
               </td>

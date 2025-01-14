@@ -10,7 +10,7 @@ export const useMainStore = defineStore('main', {
     userAvatar: null,
     token: null,
     refreshToken: null, // Ajout de la propriété pour la durée de vie du token
-
+    user: null,
     isFieldFocusRegistered: false,
 
     clients: [],
@@ -25,6 +25,11 @@ export const useMainStore = defineStore('main', {
       localStorage.setItem('access_token', this.access_token);
     },
     setUser(user) {
+      user;
+      if (user) {
+        this.user = user;
+        localStorage.setItem('user', this.user);
+      }
       if (user.name) {
         this.name = user.name;
         localStorage.setItem('name', this.name);
@@ -32,6 +37,7 @@ export const useMainStore = defineStore('main', {
       if (user.id) {
         this.id = user.id;
         localStorage.setItem('id', this.id);
+        console.log('user-----------------', this.id, this.user);
       }
       if (user.usertype) {
         this.usertype = user.usertype;

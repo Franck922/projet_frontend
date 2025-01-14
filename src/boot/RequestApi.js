@@ -354,4 +354,101 @@ export class RequestApi {
       });
     return dataRes;
   };
+
+  // reservation
+
+  /**
+   *
+   * @param {*}
+   * @returns
+   */
+  getListReservations = async () => {
+    let dataRes = { status: true };
+
+    await api
+      .get(this.ApiEndPoint.reservation)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+            data: response.data,
+          };
+        } else {
+          dataRes = {
+            status: false,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+        };
+      });
+    return dataRes;
+  };
+
+  /**
+   *
+   * @param {*}
+   * @returns
+   */
+  getListReservationsUser = async (idUser) => {
+    let dataRes = { status: true };
+
+    await api
+      .get('/reservations-user/' + idUser)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+            data: response.data,
+          };
+        } else {
+          dataRes = {
+            status: false,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+        };
+      });
+    return dataRes;
+  };
+
+  /**
+   *
+   *
+   * User
+   *
+   * @param {*}
+   * @returns
+   */
+  newReservation = async (data) => {
+    // //console.log('sdddsd');
+    let dataRes = { status: true, message: '' };
+
+    await api
+      .post(this.ApiEndPoint.reservation, data)
+      .then(async (response) => {
+        if (response.status == 201 || response.status == 200) {
+          dataRes = {
+            status: true,
+          };
+        } else {
+          dataRes = {
+            status: true,
+            message: response.data,
+          };
+        }
+      })
+      .catch(() => {
+        dataRes = {
+          status: false,
+          message: '',
+        };
+      });
+    return dataRes;
+  };
 }

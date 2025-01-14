@@ -3,8 +3,9 @@ import { mdiForwardburger, mdiBackburger, mdiMenu } from '@mdi/js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import menuAside from '@/menuAside.js';
+import menuAsideClient from '@/menuAsideClient.js';
 import menuNavBar from '@/menuNavBar.js';
-// import { useMainStore } from "@/stores/main.js";
+import { useMainStore } from '@/stores/main.js';
 import { useStyleStore } from '@/stores/style.js';
 import BaseIcon from '@/components/BaseIcon.vue';
 import FormControl from '@/components/FormControl.vue';
@@ -33,7 +34,7 @@ router.beforeEach(() => {
   isAsideMobileExpanded.value = false;
   isAsideLgActive.value = false;
 });
-
+const mainStore = useMainStore();
 const menuClick = (event, item) => {
   if (item.isToggleLightDark) {
     styleStore.setDarkMode();
@@ -56,7 +57,7 @@ const menuClick = (event, item) => {
       :class="[layoutAsidePadding, { 'ml-60 lg:ml-0': isAsideMobileExpanded }]"
       class="pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100"
     >
-       <NavBar
+      <NavBar
         :menu="menuNavBar"
         :class="[
           layoutAsidePadding,
@@ -79,14 +80,15 @@ const menuClick = (event, item) => {
         >
           <BaseIcon :path="mdiMenu" size="24" />
         </NavBarItemPlain>
-      </NavBar>  
+      </NavBar>
       <AsideMenu
         :is-aside-mobile-expanded="isAsideMobileExpanded"
         :is-aside-lg-active="isAsideLgActive"
-        :menu="menuAside"
+        :menu="mainStore.usertype == 'user' ? menuAsideClient : menuAside"
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
+
       <slot />
       <FooterBar>
         Get more with

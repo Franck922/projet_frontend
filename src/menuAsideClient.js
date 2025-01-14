@@ -18,27 +18,6 @@ import {
 
 export default [
   {
-    to: '/Dashboard',
-    icon: mdiMonitor,
-    label: 'Dashboard',
-  },
-  {
-    to: '/Vols',
-    icon: mdiHomeGroup,
-    label: 'Vols',
-  },
-  {
-    to: '/Reservations',
-    label: 'Reservations',
-    icon: mdiAccountSwitch,
-  },
-  {
-    to: '/Utilisateurs',
-    label: 'Utilisateurs',
-    icon: mdiAccountSwitch,
-  },
-
-  {
     to: '/New-Reservation',
     label: 'Reservation',
     icon: mdiAccountSwitch,

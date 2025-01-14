@@ -63,8 +63,6 @@ async function submit() {
           />
         </FormField>
 
-        <!-- <FormCheckRadio v-model="remember" name="remember" label="Remember" :input-value="true" /> -->
-
         <template #footer>
           <BaseButtons>
             <BaseButton
@@ -75,6 +73,8 @@ async function submit() {
             />
           </BaseButtons>
         </template>
+
+        <a href="/Register" rel="noopener noreferrer">S'inscrire</a>
       </CardBox>
     </SectionFullScreen>
   </LayoutGuest>
